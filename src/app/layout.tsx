@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
-import { Sidebar } from "@/components/layout/Sidebar";
-import { BottomTabs } from "@/components/layout/BottomTabs";
+import { FloatingNav } from "@/components/layout/FloatingNav";
+import { SmoothScroll } from "@/components/ui/SmoothScroll";
 import "./globals.css";
 
 const inter = Inter({
@@ -30,13 +30,9 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${spaceGrotesk.variable} font-sans antialiased`}
       >
-        <div className="flex h-screen">
-          <Sidebar />
-          <main className="flex-1 overflow-y-auto pb-20 lg:pb-0">
-            {children}
-          </main>
-        </div>
-        <BottomTabs />
+        <SmoothScroll />
+        <FloatingNav />
+        <main>{children}</main>
       </body>
     </html>
   );

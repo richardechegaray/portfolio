@@ -12,16 +12,6 @@ export const timelineEvents: TimelineEvent[] = [
     type: "project",
   },
   {
-    id: "2",
-    date: "August 2025",
-    year: 2025,
-    title: "Left Meta",
-    description:
-      "Wrapped up three years at Meta after working across multiple teams and growing from new grad to experienced engineer.",
-    tags: ["career"],
-    type: "career",
-  },
-  {
     id: "3",
     date: "August 2022",
     year: 2022,

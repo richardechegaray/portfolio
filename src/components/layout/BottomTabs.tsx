@@ -14,7 +14,7 @@ export function BottomTabs() {
   const pathname = usePathname();
 
   return (
-    <nav className="fixed bottom-0 inset-x-0 lg:hidden z-50">
+    <nav className="fixed bottom-0 inset-x-0 z-50">
       <div className="bg-surface/90 backdrop-blur-xl border-t border-border">
         <div className="flex justify-around items-center h-16 max-w-md mx-auto px-2">
           {navItems.map((item) => {
