@@ -10,13 +10,4 @@ export const clips: Clip[] = [
     date: "2024",
     tags: ["placeholder"],
   },
-  {
-    id: "2",
-    title: "Another Clip Coming Soon",
-    description: "More footage on the way.",
-    thumbnailUrl: "/images/clips/thumb-placeholder.svg",
-    videoUrl: "#",
-    date: "2024",
-    tags: ["placeholder"],
-  },
 ];

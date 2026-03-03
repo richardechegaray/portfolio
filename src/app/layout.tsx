@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
 import { FloatingNav } from "@/components/layout/FloatingNav";
 import { SmoothScroll } from "@/components/ui/SmoothScroll";
+import { CursorSpotlight } from "@/components/ui/CursorSpotlight";
 import "./globals.css";
 
 const inter = Inter({
@@ -31,6 +32,7 @@ export default function RootLayout({
         className={`${inter.variable} ${spaceGrotesk.variable} font-sans antialiased`}
       >
         <SmoothScroll />
+        <CursorSpotlight />
         <FloatingNav />
         <main>{children}</main>
       </body>

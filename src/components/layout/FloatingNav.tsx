@@ -4,8 +4,8 @@ import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Github, Linkedin, Mail } from "lucide-react";
-import { navItems, siteConfig } from "@/lib/constants";
+import { Menu, X } from "lucide-react";
+import { navItems } from "@/lib/constants";
 
 function isActive(href: string, pathname: string) {
   if (href === "/") return pathname === "/";
@@ -69,20 +69,9 @@ export function FloatingNav() {
               animate={{ x: 0, opacity: 1 }}
               exit={{ x: "-100%", opacity: 0 }}
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              className="fixed top-0 left-0 z-[58] h-full w-72 border-r border-border bg-surface/95 backdrop-blur-xl"
+              className="fixed top-0 left-0 z-[58] h-full w-72 bg-background"
             >
               <div className="flex h-full flex-col px-6 pt-20 pb-8">
-                {/* Profile */}
-                <div className="mb-8">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-accent text-white font-bold text-sm">
-                    R
-                  </div>
-                  <h2 className="mt-3 font-display text-lg font-bold text-foreground">
-                    {siteConfig.name}
-                  </h2>
-                  <p className="text-sm text-muted">{siteConfig.title}</p>
-                </div>
-
                 {/* Nav links */}
                 <nav className="flex-1 space-y-1">
                   {navItems.map((item, i) => {
@@ -110,40 +99,6 @@ export function FloatingNav() {
                     );
                   })}
                 </nav>
-
-                {/* Socials */}
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.3 }}
-                  className="flex items-center gap-4 pt-6 border-t border-border"
-                >
-                  <a
-                    href={siteConfig.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-muted hover:text-foreground transition-colors"
-                    aria-label="GitHub"
-                  >
-                    <Github size={18} />
-                  </a>
-                  <a
-                    href={siteConfig.linkedin}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-muted hover:text-foreground transition-colors"
-                    aria-label="LinkedIn"
-                  >
-                    <Linkedin size={18} />
-                  </a>
-                  <a
-                    href={`mailto:${siteConfig.email}`}
-                    className="text-muted hover:text-foreground transition-colors"
-                    aria-label="Email"
-                  >
-                    <Mail size={18} />
-                  </a>
-                </motion.div>
               </div>
             </motion.div>
           </>

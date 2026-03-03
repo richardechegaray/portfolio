@@ -50,8 +50,8 @@ export function Timeline({ events }: TimelineProps) {
       {years.map((year) => (
         <div key={year}>
           <TimelineYearMarker year={year} />
-          {grouped[year].map((event, index) => (
-            <TimelineCard key={event.id} event={event} index={index} />
+          {grouped[year].map((event) => (
+            <TimelineCard key={event.id} event={event} />
           ))}
         </div>
       ))}

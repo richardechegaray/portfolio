@@ -20,7 +20,7 @@ export function TimelineYearMarker({ year }: TimelineYearMarkerProps) {
   return (
     <div ref={ref} className="relative mb-8 mt-14 first:mt-0 h-8 flex items-center">
       {/* Dot centered on the line (line is at left-0, which is 5rem/6rem from content edge) */}
-      <div className="absolute left-[-5rem] md:left-[-6rem] ml-[-5px] h-3 w-3 rounded-full bg-accent border-2 border-background z-10" />
+      <div className="absolute left-[-5rem] md:left-[-6rem] -translate-x-1/2 h-3 w-3 rounded-full bg-accent border-2 border-background z-10" />
 
       {/* Year badge — to the left of the line */}
       <motion.div

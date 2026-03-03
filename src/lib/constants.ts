@@ -5,8 +5,7 @@ export const siteConfig = {
   name: "Richard Echegaray",
   title: "Software Engineer",
   tagline:
-    "I build modern web experiences and enjoy the journey along the way.",
-  email: "richard@example.com",
+    "I build the systems behind the products you use every day. Previously at Reality Labs, working on Audio for Meta Wearables.",
   github: "https://github.com/richardechegaray",
   linkedin: "https://www.linkedin.com/in/richardechegaray/",
 };

@@ -13,16 +13,4 @@ export const blogPosts: BlogPost[] = [
     tags: ["Update"],
     readingTime: "1 min read",
   },
-  {
-    slug: "coming-soon-2",
-    title: "Another One Brewing",
-    date: "March 2026",
-    excerpt: "Got some ideas in the works. Stay tuned.",
-    content: `
-      <h2>In progress</h2>
-      <p>This one's still cooking. Check back soon.</p>
-    `,
-    tags: ["Update"],
-    readingTime: "1 min read",
-  },
 ];
