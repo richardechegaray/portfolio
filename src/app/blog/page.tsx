@@ -1,0 +1,19 @@
+import { PageHeader } from "@/components/ui/PageHeader";
+import { ScrollReveal } from "@/components/ui/ScrollReveal";
+import { BlogCard } from "@/components/blog/BlogCard";
+import { blogPosts } from "@/data/blog-posts";
+
+export default function BlogPage() {
+  return (
+    <div className="mx-auto max-w-4xl px-4 py-8 md:py-12">
+      <PageHeader title="Blog" description="Thoughts, tutorials, and stories." />
+      <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2">
+        {blogPosts.map((post, i) => (
+          <ScrollReveal key={post.slug} delay={i * 0.1}>
+            <BlogCard post={post} />
+          </ScrollReveal>
+        ))}
+      </div>
+    </div>
+  );
+}
