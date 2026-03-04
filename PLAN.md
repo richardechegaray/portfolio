@@ -113,7 +113,12 @@ src/
 ### Step 7: Final Polish — IN PROGRESS
 - [x] Build passes with zero errors
 - [x] All routes generate correctly
-- [ ] Responsive testing across breakpoints
-- [ ] Fine-tune animation timings
+- [x] Simplified FloatingNav (removed profile, socials, border)
+- [x] Added cursor spotlight effect
+- [x] Scroll to top on page refresh
+- [x] Trimmed placeholder data to minimal stubs
+- [x] Deleted unused Sidebar and BottomTabs components
+- [ ] Link timeline project events to project detail pages
 - [ ] Add real project/blog/clip content
+- [ ] Responsive testing across breakpoints
 - [ ] Deploy to production

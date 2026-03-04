@@ -1,0 +1,121 @@
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { projects } from "@/data/projects";
+import { Tag } from "@/components/ui/Tag";
+import { Github, ExternalLink, FileText } from "lucide-react";
+
+interface ProjectPageProps {
+  params: Promise<{ id: string }>;
+}
+
+export default async function ProjectPage({ params }: ProjectPageProps) {
+  const { id } = await params;
+  const project = projects.find((p) => p.id === id);
+
+  if (!project) notFound();
+
+  return (
+    <div className="mx-auto max-w-3xl px-4 py-8 md:py-12">
+      <Link
+        href="/projects"
+        className="text-sm text-accent-light hover:text-accent transition-colors"
+      >
+        &larr; Back to projects
+      </Link>
+
+      {project.image && (
+        <div className="mt-6 overflow-hidden rounded-xl border border-border">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={project.image}
+            alt={project.title}
+            className="w-full object-cover"
+          />
+        </div>
+      )}
+
+      <h1 className="mt-6 font-display text-3xl font-bold text-foreground">
+        {project.title}
+      </h1>
+
+      {project.date && (
+        <p className="mt-2 text-sm text-muted">{project.date}</p>
+      )}
+
+      <div className="mt-3 flex flex-wrap gap-2">
+        {project.techStack.map((tech) => (
+          <Tag key={tech}>{tech}</Tag>
+        ))}
+      </div>
+
+      <div className="mt-4 flex items-center gap-4">
+        {project.githubUrl && (
+          <a
+            href={project.githubUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1.5 text-sm text-muted hover:text-foreground transition-colors"
+          >
+            <Github size={16} />
+            <span>Code</span>
+          </a>
+        )}
+        {project.liveUrl && (
+          <a
+            href={project.liveUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1.5 text-sm text-muted hover:text-foreground transition-colors"
+          >
+            <ExternalLink size={16} />
+            <span>Link</span>
+          </a>
+        )}
+        {project.pdfUrl && (
+          <a
+            href={project.pdfUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1.5 text-sm text-muted hover:text-foreground transition-colors"
+          >
+            <FileText size={16} />
+            <span>PDF</span>
+          </a>
+        )}
+      </div>
+
+      <p className="mt-8 text-muted leading-relaxed">
+        {project.longDescription || project.description}
+      </p>
+
+      {project.images && project.images.length > 0 && (
+        <div className="mt-8 space-y-4">
+          {project.images.map((img, i) => (
+            <div
+              key={i}
+              className="overflow-hidden rounded-xl border border-border"
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={img}
+                alt={`${project.title} screenshot ${i + 1}`}
+                className="w-full object-cover"
+              />
+            </div>
+          ))}
+        </div>
+      )}
+
+      {project.pdfUrl && (
+        <div className="mt-8">
+          <iframe
+            src={project.pdfUrl}
+            className="w-full rounded-xl border border-border"
+            style={{ height: "80vh" }}
+            title={`${project.title} PDF`}
+          />
+        </div>
+      )}
+    </div>
+  );
+}

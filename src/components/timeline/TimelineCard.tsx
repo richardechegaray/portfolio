@@ -61,7 +61,7 @@ export function TimelineCard({ event }: TimelineCardProps) {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2.5">
               <span className="text-lg" role="img" aria-label={event.type}>
-                {typeIcons[event.type]}
+                {event.icon || typeIcons[event.type]}
               </span>
               <span className="text-xs font-semibold uppercase tracking-wider text-accent-light">
                 {event.date}
