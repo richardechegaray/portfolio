@@ -2,16 +2,6 @@ import type { TimelineEvent } from "@/lib/types";
 
 export const timelineEvents: TimelineEvent[] = [
   {
-    id: "1",
-    date: "Febuary 2026",
-    year: 2026,
-    title: "Launched Personal Portfolio",
-    description:
-      "Built a custom portfolio site with Next.js, Tailwind CSS, and Framer Motion — featuring a timeline-based layout and smooth scroll animations.",
-    tags: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion", "Lenis"],
-    type: "project",
-  },
-  {
     id: "3",
     date: "August 2022",
     year: 2022,
@@ -38,7 +28,7 @@ export const timelineEvents: TimelineEvent[] = [
     year: 2021,
     title: "Software Developer Intern at Daanaa",
     description:
-      "Spent the summer as a software developer intern at Daanaa in Vancouver, BC.",
+      "Built a desktop application in C# (WPF) to interface with custom integrated circuits, with MSSQL database integration and real-time data visualization.",
     tags: ["career"],
     type: "career",
   },
@@ -101,21 +91,10 @@ export const timelineEvents: TimelineEvent[] = [
     id: "10",
     date: "September 2018",
     year: 2018,
-    title: "Started Engineering Physics at UBC",
+    title: "Started Engineering at UBC",
     icon: "🧑‍🎓",
     description:
-      "Began my Bachelor of Applied Science in Engineering Physics at the University of British Columbia. The start of a challenging and rewarding journey.",
-    tags: ["education"],
-    type: "education",
-  },
-  {
-    id: "11",
-    date: "May 2017",
-    year: 2017,
-    title: "Graduated High School",
-    description:
-      "Graduated from Burnaby Mountain Secondary School!",
-    tags: ["education"],
+      "Kicked off my engineering degree at UBC. First year was general engineering before I declared Engineering Physics in second year.",
     type: "education",
   },
 ];

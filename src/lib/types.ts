@@ -21,6 +21,9 @@ export interface Project {
   longDescription?: string;
   image?: string;
   images?: string[];
+  imageCaption?: string;
+  videos?: string[];
+  videoCaption?: string;
   date?: string;
   techStack: string[];
   githubUrl?: string;

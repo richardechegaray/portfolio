@@ -2,7 +2,7 @@ import type { Project } from "@/lib/types";
 
 export const projects: Project[] = [
   {
-    id: "1",
+    id: "portfolio",
     title: "Portfolio Website",
     description:
       "This site! A timeline-driven personal portfolio with scroll-linked parallax animations, smooth scrolling, a floating nav, and a cursor spotlight effect. Built from scratch.",
@@ -12,7 +12,7 @@ export const projects: Project[] = [
     featured: true,
   },
   {
-    id: "4",
+    id: "synthetic-data-pipeline",
     title: "Synthetic Data Pipeline for Bin-Picking Robots",
     description:
       "Developed a pipeline that generates labeled synthetic training data from CAD models, replacing costly manual labeling for industrial bin-picking robots. Built with BlenderProc, domain randomization, and Mask-RCNN — achieved AP 100 on the ping pong dataset and AP 73.9 on the package dataset using only synthetic data. Capstone project at UBC in partnership with DaoAI Robotics.",
@@ -25,7 +25,7 @@ export const projects: Project[] = [
     featured: true,
   },
   {
-    id: "5",
+    id: "point-cloud-visualization",
     title: "Desktop Point Cloud Visualization Application",
     description:
       "Built a desktop application for researchers at a major tech company to visualize massive 3D point clouds of a fruit fly brain connectome. The tool used a Python API, Unity, and Potree to render and label datasets of up to 10M+ points with interactive navigation, depth lighting, and eye-dome lighting. Capstone project at UBC Engineering Physics (ENPH 459).",
@@ -37,7 +37,37 @@ export const projects: Project[] = [
     featured: true,
   },
   {
-    id: "2",
+    id: "quickpick",
+    title: "quickPick — Group Decision-Making App",
+    description:
+      "Built a Tinder-style group decision app where users create or join sessions, swipe on ideas from shared lists, and see ranked results in real time. Android frontend with a Node.js/MongoDB backend and Firebase push notifications.",
+    longDescription:
+      "Built quickPick, a mobile app that helps groups make decisions through a Tinder-style swiping interface. Users log in via Facebook, create custom lists of options (movies, restaurants, activities, etc.), and host real-time sessions that others join with a 5-digit pin. Everyone swipes through the list independently, and once all participants finish, the app displays ranked results based on the group's collective preferences.\n\nThe Android frontend was built in Java with automated UI tests covering login flows, session joining, and swiping. The backend used Node.js with MongoDB for storing sessions, lists, and users, and Firebase for real-time push notifications to keep all participants in sync. Integrated Unsplash's image API to auto-populate lists with relevant photos, and built a URL caching layer to work around rate limits. Achieved 99.7% backend line coverage with comprehensive unit, integration, and non-functional requirement tests covering latency, scalability (50+ concurrent users), and privacy.",
+    image: "/images/quickpick.jpg",
+    videos: ["/images/quickpick.mp4"],
+    videoCaption: "Demoing the user flow for creating and voting in a session",
+    date: "2021",
+    techStack: ["Android", "Java", "Node.js", "MongoDB", "Firebase"],
+    githubUrl: "https://github.com/richardechegaray/quickPick",
+    featured: true,
+  },
+  {
+    id: "robot-simulation",
+    title: "Autonomous Driving & License Plate Recognition — 3rd Place",
+    description:
+      "Built an autonomous simulated car that navigated a course, avoided pedestrians, and read license plates using CNNs and computer vision. Placed 3rd out of 16 teams in UBC's ENPH 353 competition.",
+    longDescription:
+      "Programmed a simulated autonomous vehicle in Python using ROS and Gazebo for UBC's ENPH 353 machine learning competition. The car navigated an urban course using computer vision for line following, detected crosswalks and waited for pedestrians to pass, and read license plates mounted throughout the environment.\n\nBuilt three specialized CNNs in Keras — one for letters, one for numbers, and one for parking spot labels — along with four backup CNNs to handle common misclassifications (e.g. 8 predicted as 0, B predicted as A). Generated synthetic training data using OpenCV augmentations including Gaussian blur, rotation, and perspective transforms. Navigation was implemented as a state machine that traversed an inner loop first for high-value plates, then looped the outer ring indefinitely. Placed 3rd out of 16 teams with a near-perfect score.",
+    image: "/images/birdseye.PNG",
+    images: ["/images/origframe.PNG", "/images/origbluecontours.PNG", "/images/whitecontours.PNG"],
+    imageCaption: "Experimenting with different contours",
+    date: "2021",
+    techStack: ["Python", "ROS", "Gazebo", "Keras", "OpenCV"],
+    githubUrl: "https://github.com/richardechegaray/enph353-ubc-parkingrobot-competition",
+    featured: true,
+  },
+  {
+    id: "greeneats",
     title: "greenEats — 1st Place @ nwHacks 2020",
     description:
       "Built greenEats, a grocery management Android app that tracks food expiration dates to reduce waste. Users could log groceries via receipt scanning (OCR), voice recognition (Azure Speech Services), or manual input, and get recipe recommendations based on what's about to expire. Won 1st place and the Wolfram Award at nwHacks 2020. Built with Java, Firebase, and Azure.",
@@ -46,14 +76,23 @@ export const projects: Project[] = [
     image: "/images/nwhacks20.png",
     date: "January 2020",
     techStack: ["Java", "Kotlin", "Android", "Firebase", "Azure Speech", "Firebase MLKit"],
+    githubUrl: "https://github.com/alexcarbo/greenEats",
     liveUrl: "https://devpost.com/software/greeneats",
     featured: true,
   },
   {
-    id: "3",
-    title: "Coming Soon",
-    description: "More projects on the way. Stay tuned!",
-    techStack: [],
+    id: "autonomous-robot",
+    title: "Autonomous Robotics Competition — 3rd Place",
+    description:
+      "Led software development for a fully autonomous robot that detected and picked up objects using PID control, IR beacon detection, and signal convolution. Placed 3rd overall.",
+    longDescription:
+      "Served as software lead for a team that built a fully autonomous robot including mechanical, electrical, and software design. Designed and implemented an integration testing plan across iterative design cycles to catch issues early. Placed 3rd in UBC's Autonomous Robotics Competition.\n\nOur strategy was to sweep up Avenger plushies scattered across the course by driving with open arms, then closing to corral them all at once. The robot used signal convolution to filter IR beacon frequencies and identify the correct team bin, then drove the plushies to the right destination. Navigation and pickup were handled via PID control, all programmed in C++.",
+    image: "/images/doorsTogether.JPG",
+    images: ["/images/doorsClosed.JPG", "/images/doorsOpen.JPG"],
+    videos: ["/images/perfect_run.mp4"],
+    date: "2019",
+    techStack: ["C++", "PID Control", "Signal Processing"],
+    githubUrl: "https://github.com/richardechegaray/enph253",
     featured: true,
   },
 ];

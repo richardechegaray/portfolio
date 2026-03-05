@@ -22,12 +22,12 @@ export function ProjectCard({ project, featured }: ProjectCardProps) {
       }`}
     >
       {project.image && (
-        <div className="w-full bg-gray-800">
+        <div className="w-full bg-black/20 flex justify-center">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={project.image}
             alt={project.title}
-            className="w-full object-contain"
+            className="max-w-full h-auto"
           />
         </div>
       )}

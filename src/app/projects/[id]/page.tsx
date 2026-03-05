@@ -84,25 +84,52 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         )}
       </div>
 
-      <p className="mt-8 text-muted leading-relaxed">
+      <div className="mt-8 text-muted leading-relaxed whitespace-pre-line">
         {project.longDescription || project.description}
-      </p>
+      </div>
+
+      {project.videos && project.videos.length > 0 && (
+        <div className="mt-8">
+          <div className="space-y-4">
+            {project.videos.map((vid, i) => (
+              <video
+                key={i}
+                src={vid}
+                controls
+                className="w-full rounded-xl border border-border"
+              />
+            ))}
+          </div>
+          {project.videoCaption && (
+            <p className="mt-2 text-center text-sm text-muted italic">
+              {project.videoCaption}
+            </p>
+          )}
+        </div>
+      )}
 
       {project.images && project.images.length > 0 && (
-        <div className="mt-8 space-y-4">
-          {project.images.map((img, i) => (
-            <div
-              key={i}
-              className="overflow-hidden rounded-xl border border-border"
-            >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={img}
-                alt={`${project.title} screenshot ${i + 1}`}
-                className="w-full object-cover"
-              />
-            </div>
-          ))}
+        <div className="mt-8">
+          <div className={project.images.length >= 3 ? "grid grid-cols-3 gap-4" : "space-y-4"}>
+            {project.images.map((img, i) => (
+              <div
+                key={i}
+                className="overflow-hidden rounded-xl border border-border"
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={img}
+                  alt={`${project.title} screenshot ${i + 1}`}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            ))}
+          </div>
+          {project.imageCaption && (
+            <p className="mt-2 text-center text-sm text-muted italic">
+              {project.imageCaption}
+            </p>
+          )}
         </div>
       )}
 
