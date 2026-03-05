@@ -1,4 +1,4 @@
-import { User, FileText, Film, FolderGit2 } from "lucide-react";
+import { User, FileText, Film, FolderGit2, Clock, Mail } from "lucide-react";
 import type { NavItem } from "./types";
 
 export const siteConfig = {
@@ -11,8 +11,10 @@ export const siteConfig = {
 };
 
 export const navItems: NavItem[] = [
-  { label: "Overview", href: "/", icon: User },
+  { label: "Home", href: "/", icon: User },
+  { label: "Timeline", href: "/#timeline", icon: Clock },
   { label: "Projects", href: "/projects", icon: FolderGit2 },
-  { label: "Blog", href: "/blog", icon: FileText },
   { label: "Clips", href: "/clips", icon: Film },
+  { label: "Blog", href: "/blog", icon: FileText },
+  { label: "Contact", href: "/#contact", icon: Mail },
 ];

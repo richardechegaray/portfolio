@@ -2,6 +2,17 @@ import type { TimelineEvent } from "@/lib/types";
 
 export const timelineEvents: TimelineEvent[] = [
   {
+    id: "dog-dad",
+    date: "October 2022",
+    year: 2022,
+    title: "Adopted Penny!",
+    icon: "🐶",
+    description:
+      "When I moved to SF I knew I wanted to rescue a dog ASAP. I ended up getting a puppy before having a couch, tv, or bed 🤣 best decision ever",
+    image: "/images/pennyDestruction.png",
+    type: "personal",
+  },
+  {
     id: "3",
     date: "August 2022",
     year: 2022,
@@ -9,7 +20,7 @@ export const timelineEvents: TimelineEvent[] = [
     icon: "♾️",
     description:
       "Built the audio systems powering Ray-Ban Meta smart glasses.",
-    tags: ["career"],
+    tags: ["C++", "Python", "DSP", "Audio", "AR/VR", "Platform Engineering"],
     type: "career",
   },
   {
@@ -19,7 +30,7 @@ export const timelineEvents: TimelineEvent[] = [
     title: "Graduated from UBC",
     description:
       "Earned a Bachelor of Applied Science in Engineering Physics from the University of British Columbia.",
-    tags: ["education"],
+    image: "/images/graduation.JPG",
     type: "education",
   },
   {
@@ -29,7 +40,7 @@ export const timelineEvents: TimelineEvent[] = [
     title: "Software Developer Intern at Daanaa",
     description:
       "Built a desktop application in C# (WPF) to interface with custom integrated circuits, with MSSQL database integration and real-time data visualization.",
-    tags: ["career"],
+    tags: ["C#", "WPF", "MSSQL"],
     type: "career",
   },
   {
@@ -39,20 +50,11 @@ export const timelineEvents: TimelineEvent[] = [
     title: "Project Coordinator Intern at RecycleSmart",
     icon: "⚙️",
     description:
-      "Supported the Director of IoT through prototype, pilot, and production phases of an SDTC-funded Internet of Things project at RecycleSmart in Richmond, BC.",
-    tags: ["career"],
+      "Supported the development of Pello, an AI-powered IoT smart bin sensor that uses ultrasonic sensors and cameras to detect waste fill levels and contamination in real time. SDTC-funded project at RecycleSmart.",
+    image: "/images/carl.png",
+    link: { label: "Pello", url: "https://www.rts.com/pello-smart-bin-sensors/" },    
+    tags: ["Python", "C", "IoT", "Ultrasonic Sensors", "Prototyping"],
     type: "career",
-  },
-  {
-    id: "12",
-    date: "January 2020",
-    year: 2020,
-    title: "1st Place @ nwHacks 2020",
-    icon: "🏆",
-    description:
-      "Won 1st place at Western Canada's largest hackathon (769 participants). Built an Android app to reduce food waste using Azure Speech, Firebase MLKit, and Firestore.",
-    tags: ["Android", "Azure Speech", "Firebase MLKit", "Firestore"],
-    type: "achievement",
   },
   {
     id: "7",
@@ -62,7 +64,6 @@ export const timelineEvents: TimelineEvent[] = [
     icon: "📚",
     description:
       "TA for the Department of Physics and Astronomy. Led tutorials for PHYS 157 and PHYS 158 — covering thermodynamics, waves, electricity, magnetism, and optics. Ran my own section of 40 students and led group tutorials of 150.",
-    tags: ["education"],
     type: "education",
   },
   {
@@ -73,7 +74,6 @@ export const timelineEvents: TimelineEvent[] = [
     icon: "🎹",
     description:
       "Achieved the Associate of the Royal Conservatory of Toronto (ARCT) — the highest performance diploma offered by the Royal Conservatory of Music.",
-    tags: ["achievement", "personal"],
     type: "achievement",
   },
   {
@@ -84,7 +84,7 @@ export const timelineEvents: TimelineEvent[] = [
     icon: "📡",
     description:
       "Wrote embedded C for SPI communication between an STM32 MCU and ADXL355 accelerometer, achieving ±0.002° tilt precision. Built an automated test framework in Python with Robot Framework for backwards compatibility testing.",
-    tags: ["career"],
+    tags: ["C", "Python", "STM32"],
     type: "career",
   },
   {

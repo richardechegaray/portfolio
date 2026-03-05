@@ -3,6 +3,7 @@ import { Inter, Space_Grotesk } from "next/font/google";
 import { FloatingNav } from "@/components/layout/FloatingNav";
 import { SmoothScroll } from "@/components/ui/SmoothScroll";
 import { CursorSpotlight } from "@/components/ui/CursorSpotlight";
+import { Starfield } from "@/components/ui/Starfield";
 import "./globals.css";
 
 const inter = Inter({
@@ -31,10 +32,11 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${spaceGrotesk.variable} font-sans antialiased`}
       >
+        <Starfield />
         <SmoothScroll />
         <CursorSpotlight />
         <FloatingNav />
-        <main>{children}</main>
+        <main className="relative z-10">{children}</main>
       </body>
     </html>
   );

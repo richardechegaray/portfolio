@@ -33,26 +33,31 @@ export function Timeline({ events }: TimelineProps) {
     offset: ["start center", "end end"],
   });
 
-  // The line grows from 0% to 100% height as you scroll through the timeline
   const lineHeight = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
-  return (
-    <div ref={containerRef} className="relative pl-20 md:pl-24">
-      {/* Static background line (faint) */}
-      <div className="absolute left-0 top-0 bottom-0 w-px bg-border" />
+  let globalIndex = 0;
 
-      {/* Animated progress line (grows as you scroll) */}
+  return (
+    <div ref={containerRef} className="relative">
+      {/* Static background line — left on mobile, center on desktop */}
+      <div className="absolute left-5 md:left-1/2 top-0 bottom-0 w-px bg-border" />
+
+      {/* Animated progress line */}
       <motion.div
         style={{ height: lineHeight }}
-        className="absolute left-0 top-0 w-px bg-gradient-to-b from-accent via-accent to-accent/50 origin-top"
+        className="absolute left-5 md:left-1/2 top-0 w-px bg-gradient-to-b from-blue-400 via-indigo-500 via-60% to-purple-500/50 origin-top"
       />
 
       {years.map((year) => (
         <div key={year}>
           <TimelineYearMarker year={year} />
-          {grouped[year].map((event) => (
-            <TimelineCard key={event.id} event={event} />
-          ))}
+          {grouped[year].map((event) => {
+            const side = globalIndex % 2 === 0 ? "left" : "right";
+            globalIndex++;
+            return (
+              <TimelineCard key={event.id} event={event} side={side} />
+            );
+          })}
         </div>
       ))}
     </div>
