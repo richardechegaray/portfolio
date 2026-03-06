@@ -86,7 +86,7 @@ export const projects: Project[] = [
       "Served as software lead for a team that built a fully autonomous robot including mechanical, electrical, and software design. Designed and implemented an integration testing plan across iterative design cycles to catch issues early. Placed 3rd in UBC's Autonomous Robotics Competition.\n\nOur strategy was to sweep up Avenger plushies scattered across the course by driving with open arms, then closing to corral them all at once. The robot used signal convolution to filter IR beacon frequencies and identify the correct team bin, then drove the plushies to the right destination. Navigation and pickup were handled via PID control, all programmed in C++.",
     image: "/images/doorsTogether.JPG",
     images: ["/images/doorsClosed.JPG", "/images/doorsOpen.JPG"],
-    videos: ["/videos/perfect_run.mp4"],
+    videos: ["https://youtu.be/dZkfXFzqVAU"],
     date: "2019",
     techStack: ["C++", "PID Control", "Signal Processing"],
     githubUrl: "https://github.com/richardechegaray/enph253",

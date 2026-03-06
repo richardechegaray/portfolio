@@ -46,7 +46,7 @@ export const clips: Clip[] = [
     title: "Blooper",
     description: "Things don't always go as planned...",
     thumbnailUrl: "",
-    videoUrl: "/videos/blooper.mp4",
+    videoUrl: "https://youtu.be/C_lnDI0AV5s",
     date: "2025",
     tags: ["gaming"],
   },

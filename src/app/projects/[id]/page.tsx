@@ -91,14 +91,26 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
       {project.videos && project.videos.length > 0 && (
         <div className="mt-8">
           <div className="space-y-4">
-            {project.videos.map((vid) => (
-              <video
-                key={vid}
-                src={vid}
-                controls
-                className="w-full rounded-xl border border-border"
-              />
-            ))}
+            {project.videos.map((vid) => {
+              const ytMatch = vid.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([\w-]+)/);
+              return ytMatch ? (
+                <div key={vid} className="aspect-video">
+                  <iframe
+                    src={`https://www.youtube.com/embed/${ytMatch[1]}`}
+                    className="w-full h-full rounded-xl border border-border"
+                    allow="autoplay; encrypted-media"
+                    allowFullScreen
+                  />
+                </div>
+              ) : (
+                <video
+                  key={vid}
+                  src={vid}
+                  controls
+                  className="w-full rounded-xl border border-border"
+                />
+              );
+            })}
           </div>
           {project.videoCaption && (
             <p className="mt-2 text-center text-sm text-muted italic">
