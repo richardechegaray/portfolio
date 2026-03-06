@@ -30,9 +30,9 @@ function generateStars(
 }
 
 const LAYERS = [
-  { count: 50, size: [1, 1] as [number, number], opacity: [0.3, 0.5] as [number, number], twinkle: [4, 7] as [number, number], speed: 0.02 },
-  { count: 40, size: [1, 1.5] as [number, number], opacity: [0.4, 0.7] as [number, number], twinkle: [3, 5] as [number, number], speed: 0.05 },
-  { count: 15, size: [1.5, 2] as [number, number], opacity: [0.6, 0.9] as [number, number], twinkle: [2, 4] as [number, number], speed: 0.1 },
+  { count: 70, size: [1, 2] as [number, number], opacity: [0.4, 0.7] as [number, number], twinkle: [3, 6] as [number, number], speed: 0.02 },
+  { count: 50, size: [2, 3] as [number, number], opacity: [0.6, 0.9] as [number, number], twinkle: [2, 4] as [number, number], speed: 0.05 },
+  { count: 25, size: [2.5, 4] as [number, number], opacity: [0.8, 1] as [number, number], twinkle: [1, 2.5] as [number, number], speed: 0.1 },
 ];
 
 export function Starfield() {
@@ -81,6 +81,7 @@ export function Starfield() {
                 opacity: star.opacity,
                 animationDuration: `${star.twinkleDuration}s`,
                 animationDelay: `${star.twinkleDelay}s`,
+                boxShadow: star.size >= 2.5 ? `0 0 ${star.size * 2}px ${star.size * 0.5}px rgba(255,255,255,0.4)` : undefined,
               }}
             />
           ))}
@@ -90,6 +91,7 @@ export function Starfield() {
       {/* Shooting stars */}
       <div className="shooting-star shooting-star-1" />
       <div className="shooting-star shooting-star-2" />
+      <div className="shooting-star shooting-star-3" />
     </div>
   );
 }

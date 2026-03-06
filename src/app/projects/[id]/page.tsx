@@ -1,6 +1,6 @@
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { projects } from "@/data/projects";
+import { BackLink } from "@/components/ui/BackLink";
 import { Tag } from "@/components/ui/Tag";
 import { Github, ExternalLink, FileText } from "lucide-react";
 
@@ -16,12 +16,12 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-8 md:py-12">
-      <Link
-        href="/projects"
+      <BackLink
+        href={`/projects#${id}`}
         className="text-sm text-accent-light hover:text-accent transition-colors"
       >
         &larr; Back to projects
-      </Link>
+      </BackLink>
 
       {project.image && (
         <div className="mt-6 overflow-hidden rounded-xl border border-border">
@@ -91,9 +91,9 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
       {project.videos && project.videos.length > 0 && (
         <div className="mt-8">
           <div className="space-y-4">
-            {project.videos.map((vid, i) => (
+            {project.videos.map((vid) => (
               <video
-                key={i}
+                key={vid}
                 src={vid}
                 controls
                 className="w-full rounded-xl border border-border"
@@ -110,16 +110,16 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
       {project.images && project.images.length > 0 && (
         <div className="mt-8">
-          <div className={project.images.length >= 3 ? "grid grid-cols-3 gap-4" : "space-y-4"}>
-            {project.images.map((img, i) => (
+          <div className={project.images.length >= 3 ? "grid grid-cols-1 sm:grid-cols-3 gap-4" : "space-y-4"}>
+            {project.images.map((img) => (
               <div
-                key={i}
+                key={img}
                 className="overflow-hidden rounded-xl border border-border"
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={img}
-                  alt={`${project.title} screenshot ${i + 1}`}
+                  alt={project.title}
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -138,7 +138,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           <iframe
             src={project.pdfUrl}
             className="w-full rounded-xl border border-border"
-            style={{ height: "80vh" }}
+            style={{ height: "85vh" }}
             title={`${project.title} PDF`}
           />
         </div>

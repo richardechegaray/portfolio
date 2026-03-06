@@ -3,6 +3,8 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
+const SPOTLIGHT_SIZE = 500;
+
 export function CursorSpotlight() {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [visible, setVisible] = useState(false);
@@ -33,12 +35,14 @@ export function CursorSpotlight() {
       transition={{ duration: 0.3 }}
     >
       <div
-        className="absolute h-[400px] w-[400px] rounded-full"
+        className="absolute rounded-full"
         style={{
-          left: position.x - 200,
-          top: position.y - 200,
+          width: SPOTLIGHT_SIZE,
+          height: SPOTLIGHT_SIZE,
+          left: position.x - SPOTLIGHT_SIZE / 2,
+          top: position.y - SPOTLIGHT_SIZE / 2,
           background:
-            "radial-gradient(circle, rgba(99,102,241,0.06) 0%, transparent 70%)",
+            "radial-gradient(circle, rgba(99,102,241,0.15) 0%, rgba(99,102,241,0.06) 30%, transparent 70%)",
         }}
       />
     </motion.div>

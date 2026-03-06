@@ -24,6 +24,7 @@ function getYouTubeEmbedUrl(url: string): string | null {
 
 export function ClipCard({ clip }: ClipCardProps) {
   const [playing, setPlaying] = useState(false);
+  const isLocal = clip.videoUrl.startsWith("/");
   const embedUrl = getYouTubeEmbedUrl(clip.videoUrl);
 
   return (
@@ -34,7 +35,15 @@ export function ClipCard({ clip }: ClipCardProps) {
     >
       {/* Video / Thumbnail */}
       <div className="relative aspect-video bg-gray-800">
-        {playing && embedUrl ? (
+        {isLocal ? (
+          <video
+            src={clip.videoUrl}
+            className="absolute inset-0 h-full w-full object-cover"
+            controls
+            playsInline
+            preload="metadata"
+          />
+        ) : playing && embedUrl ? (
           <iframe
             src={`${embedUrl}?autoplay=1${clip.startTime != null ? `&start=${clip.startTime}` : ""}${clip.endTime != null ? `&end=${clip.endTime}` : ""}`}
             className="absolute inset-0 h-full w-full"
@@ -42,23 +51,23 @@ export function ClipCard({ clip }: ClipCardProps) {
             allowFullScreen
           />
         ) : (
-          <a
-            href={embedUrl ? undefined : clip.videoUrl}
-            target={embedUrl ? undefined : "_blank"}
-            rel={embedUrl ? undefined : "noopener noreferrer"}
-            onClick={embedUrl ? () => setPlaying(true) : undefined}
+          <button
+            type="button"
+            onClick={() => setPlaying(true)}
             className="flex h-full w-full items-center justify-center cursor-pointer relative"
           >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={clip.thumbnailUrl}
-              alt={clip.title}
-              className="absolute inset-0 h-full w-full object-cover"
-            />
+            {clip.thumbnailUrl && (
+              /* eslint-disable-next-line @next/next/no-img-element */
+              <img
+                src={clip.thumbnailUrl}
+                alt={clip.title}
+                className="absolute inset-0 h-full w-full object-cover"
+              />
+            )}
             <div className="relative flex h-12 w-12 items-center justify-center rounded-full bg-accent/80 text-white group-hover:bg-accent transition-colors">
               <Play size={20} className="ml-0.5" />
             </div>
-          </a>
+          </button>
         )}
       </div>
 

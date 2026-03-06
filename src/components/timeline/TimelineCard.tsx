@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import Link from "next/link";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ExternalLink } from "lucide-react";
 import { Tag } from "@/components/ui/Tag";
@@ -11,14 +12,6 @@ interface TimelineCardProps {
   side: "left" | "right";
 }
 
-const typeColors: Record<TimelineEvent["type"], string> = {
-  career: "from-indigo-500/20 to-transparent",
-  education: "from-emerald-500/20 to-transparent",
-  achievement: "from-amber-500/20 to-transparent",
-  personal: "from-rose-500/20 to-transparent",
-  project: "from-cyan-500/20 to-transparent",
-};
-
 const typeIcons: Record<TimelineEvent["type"], string> = {
   career: "💼",
   education: "🎓",
@@ -26,6 +19,57 @@ const typeIcons: Record<TimelineEvent["type"], string> = {
   personal: "⭐",
   project: "🛠️",
 };
+
+function CardContent({ event }: { event: TimelineEvent }) {
+  return (
+    <>
+      {event.image && (
+        <div className="w-full">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={event.image}
+            alt={event.title}
+            className="w-full object-cover"
+          />
+        </div>
+      )}
+
+      <div className="p-6 md:p-7">
+        <span className="text-xs font-semibold uppercase tracking-wider text-accent-light">
+          {event.date}
+        </span>
+
+        <h3 className="mt-3 font-display text-xl font-bold text-foreground md:text-2xl">
+          {event.title}
+        </h3>
+
+        <p className="mt-3 text-sm leading-relaxed text-muted md:text-base">
+          {event.description}
+        </p>
+
+        {event.tags && event.tags.length > 0 && (
+          <div className="mt-4 flex flex-wrap gap-2">
+            {event.tags.map((tag) => (
+              <Tag key={tag}>{tag}</Tag>
+            ))}
+          </div>
+        )}
+
+        {event.link && (
+          <a
+            href={event.link.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-accent-light hover:text-accent transition-colors"
+          >
+            {event.link.label}
+            <ExternalLink size={14} />
+          </a>
+        )}
+      </div>
+    </>
+  );
+}
 
 export function TimelineCard({ event, side }: TimelineCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
@@ -41,6 +85,7 @@ export function TimelineCard({ event, side }: TimelineCardProps) {
 
   return (
     <div
+      id={event.id}
       ref={cardRef}
       className={`relative mb-10 md:mb-14 pl-12 md:pl-0 ${
         isLeft ? "md:pr-[53%]" : "md:pl-[53%]"
@@ -58,55 +103,15 @@ export function TimelineCard({ event, side }: TimelineCardProps) {
       {/* Card */}
       <motion.div
         style={{ opacity }}
-        className="group relative overflow-hidden rounded-2xl border border-border bg-surface transition-all duration-300 hover:border-accent/30 hover:shadow-xl hover:shadow-accent/5"
+        className={`group relative overflow-hidden rounded-2xl border border-border bg-surface transition-all duration-300 hover:border-accent/30 hover:shadow-xl hover:shadow-accent/5 ${event.longDescription ? "cursor-pointer" : ""}`}
       >
-        {/* Top gradient accent bar */}
-        <div className={`h-1 w-full bg-gradient-to-r ${typeColors[event.type]}`} />
-
-        {event.image && (
-          <div className="w-full">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={event.image}
-              alt={event.title}
-              className="w-full object-cover"
-            />
-          </div>
+        {event.longDescription ? (
+          <Link href={`/timeline/${event.id}`} className="block">
+            <CardContent event={event} />
+          </Link>
+        ) : (
+          <CardContent event={event} />
         )}
-
-        <div className="p-6 md:p-7">
-          <span className="text-xs font-semibold uppercase tracking-wider text-accent-light">
-            {event.date}
-          </span>
-
-          <h3 className="mt-3 font-display text-xl font-bold text-foreground md:text-2xl">
-            {event.title}
-          </h3>
-
-          <p className="mt-3 text-sm leading-relaxed text-muted md:text-base">
-            {event.description}
-          </p>
-
-          {event.tags && event.tags.length > 0 && (
-            <div className="mt-4 flex flex-wrap gap-2">
-              {event.tags.map((tag) => (
-                <Tag key={tag}>{tag}</Tag>
-              ))}
-            </div>
-          )}
-
-          {event.link && (
-            <a
-              href={event.link.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-accent-light hover:text-accent transition-colors"
-            >
-              {event.link.label}
-              <ExternalLink size={14} />
-            </a>
-          )}
-        </div>
       </motion.div>
     </div>
   );

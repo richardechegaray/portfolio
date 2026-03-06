@@ -7,6 +7,7 @@ import Link from "next/link";
 import { Timeline } from "@/components/timeline/Timeline";
 import { timelineEvents } from "@/data/timeline";
 import { siteConfig } from "@/lib/constants";
+import { smoothScrollTo } from "@/lib/utils";
 
 export default function TimelinePage() {
   const heroRef = useRef<HTMLDivElement>(null);
@@ -46,6 +47,16 @@ export default function TimelinePage() {
 
       {/* Fullscreen hero */}
       <div ref={heroRef} className="relative flex min-h-screen items-center justify-center px-6">
+        {/* Profile photo background */}
+        <div className="pointer-events-none absolute inset-0 flex items-center justify-center overflow-hidden">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/images/profile.jpg"
+            alt=""
+            className="h-[100vh] w-auto object-cover opacity-45 mask-[radial-gradient(ellipse_at_center,black_25%,transparent_65%)]"
+          />
+        </div>
+
         {/* Nebula glow cluster */}
         <div className="pointer-events-none absolute inset-0">
           <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[700px] w-[700px] rounded-full bg-indigo-500/8 blur-[140px]" />
@@ -71,7 +82,7 @@ export default function TimelinePage() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="mt-6 font-display text-6xl font-bold leading-tight text-foreground md:text-8xl lg:text-9xl"
+            className="mt-6 font-display text-4xl font-bold leading-tight text-foreground sm:text-6xl md:text-8xl lg:text-9xl"
           >
             {siteConfig.name}
           </motion.h1>
@@ -80,7 +91,7 @@ export default function TimelinePage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.25 }}
-            className="mx-auto mt-6 max-w-lg text-lg text-muted md:text-xl"
+            className="mx-auto mt-6 max-w-lg text-lg text-[#b0bec9] md:text-xl"
           >
             {siteConfig.tagline}
           </motion.p>
@@ -89,9 +100,9 @@ export default function TimelinePage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.35 }}
-            className="mx-auto mt-4 max-w-lg text-sm leading-relaxed text-muted/80"
+            className="mx-auto mt-4 max-w-lg text-sm leading-relaxed text-[#b0bec9]"
           >
-            Born and raised in Vancouver. I love sports, music, piano, and gaming (peep the clips section) — and building things that make people&apos;s lives easier.
+            Born and raised in Vancouver. I love sports, music, piano, video games (peep the clips section) — and building things that make people&apos;s lives easier.
           </motion.p>
 
           <motion.div
@@ -101,28 +112,14 @@ export default function TimelinePage() {
             className="mt-12"
           >
             <button
+              type="button"
               onClick={() => {
                 const el = document.getElementById("timeline");
                 if (!el) return;
-                const target = el.getBoundingClientRect().top + window.scrollY;
-                const start = window.scrollY;
-                const distance = target - start;
-                const duration = 800;
-                let startTime: number | null = null;
-
-                function step(timestamp: number) {
-                  if (!startTime) startTime = timestamp;
-                  const elapsed = timestamp - startTime;
-                  const progress = Math.min(elapsed / duration, 1);
-                  const ease = progress < 0.5
-                    ? 2 * progress * progress
-                    : 1 - Math.pow(-2 * progress + 2, 2) / 2;
-                  window.scrollTo(0, start + distance * ease);
-                  if (elapsed < duration) requestAnimationFrame(step);
-                }
-                requestAnimationFrame(step);
+                const target = el.getBoundingClientRect().top + window.scrollY - 80;
+                smoothScrollTo(target);
               }}
-              className="inline-flex items-center gap-2 text-sm text-muted transition-colors hover:text-foreground"
+              className="inline-flex items-center gap-2 text-sm text-[#b0bec9] transition-colors hover:text-foreground"
             >
               <span>Scroll to explore</span>
               <motion.span
@@ -141,12 +138,12 @@ export default function TimelinePage() {
         <h2 className="font-display text-3xl font-bold text-foreground md:text-4xl">
           My Story
         </h2>
-        <p className="mt-2 mb-8 text-muted text-lg">The journey thus far</p>
+        <p className="mt-2 mb-8 text-muted text-lg">The journey thus far..</p>
         <Timeline events={timelineEvents} />
       </div>
 
       {/* Explore */}
-      <div className="mx-auto max-w-4xl px-4 pb-24">
+      <div id="explore" className="mx-auto max-w-4xl px-4 pb-24">
         <h2 className="font-display text-3xl font-bold text-foreground md:text-4xl">
           Explore
         </h2>
@@ -200,7 +197,7 @@ export default function TimelinePage() {
             <span className="text-sm font-medium">LinkedIn</span>
           </a>
           <a
-            href="mailto:richardechegaray@outlook.com"
+            href={`mailto:${siteConfig.email}`}
             className="flex items-center gap-3 rounded-xl border border-border bg-surface/60 px-5 py-4 text-muted transition-colors hover:text-foreground hover:border-accent/40"
           >
             <Mail size={20} />

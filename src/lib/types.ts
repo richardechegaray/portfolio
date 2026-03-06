@@ -4,12 +4,16 @@ export interface TimelineEvent {
   year: number;
   title: string;
   description: string;
+  longDescription?: string;
   image?: string;
+  images?: string[];
+  videos?: string[];
   tags?: string[];
   link?: {
     label: string;
     url: string;
   };
+  projectId?: string;
   icon?: string;
   type: "career" | "education" | "achievement" | "personal" | "project";
 }
@@ -29,7 +33,6 @@ export interface Project {
   githubUrl?: string;
   liveUrl?: string;
   pdfUrl?: string;
-  featured: boolean;
 }
 
 export interface BlogPost {

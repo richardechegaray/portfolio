@@ -2,7 +2,7 @@
 @plugin "@tailwindcss/typography";
 
 @theme inline {
-  --color-background: #020617;
+  --color-background: #010a10;
   --color-foreground: #f1f5f9;
   --color-accent: #6366f1;
   --color-accent-light: #a5b4fc;
@@ -20,6 +20,11 @@ body {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  cursor: url("/rocket-cursor.svg") 5 2, auto;
+}
+
+a, button, [role="button"], input, textarea, select, label {
+  cursor: pointer;
 }
 
 html {
@@ -48,27 +53,16 @@ html {
   background-color: rgba(99, 102, 241, 0.3);
 }
 
-.wave {
-  display: inline-block;
-  animation: wave 2.5s ease-in-out infinite;
-  transform-origin: 70% 70%;
-}
-
-@keyframes wave {
-  0%, 60%, 100% { transform: rotate(0deg); }
-  10%, 30% { transform: rotate(14deg); }
-  20% { transform: rotate(-8deg); }
-  40% { transform: rotate(-4deg); }
-  50% { transform: rotate(10deg); }
-}
 
 /* Starfield twinkle */
 @keyframes twinkle {
   0%, 100% {
     filter: brightness(1);
+    transform: scale(1);
   }
   50% {
-    filter: brightness(0.3);
+    filter: brightness(0.15);
+    transform: scale(0.7);
   }
 }
 
@@ -102,15 +96,22 @@ html {
 .shooting-star-1 {
   top: 15%;
   left: 70%;
-  animation: shootingStar 12s ease-in-out infinite;
-  animation-delay: 3s;
+  animation: shootingStar 6s ease-in-out infinite;
+  animation-delay: 1s;
 }
 
 .shooting-star-2 {
   top: 35%;
   left: 40%;
-  animation: shootingStar 15s ease-in-out infinite;
-  animation-delay: 9s;
+  animation: shootingStar 8s ease-in-out infinite;
+  animation-delay: 4s;
+}
+
+.shooting-star-3 {
+  top: 55%;
+  left: 80%;
+  animation: shootingStar 7s ease-in-out infinite;
+  animation-delay: 2.5s;
 }
 
 @keyframes shootingStar {

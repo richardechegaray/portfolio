@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { navItems } from "@/lib/constants";
+import { smoothScrollTo } from "@/lib/utils";
 
 export function FloatingNav() {
   const [isOpen, setIsOpen] = useState(false);
@@ -15,7 +16,7 @@ export function FloatingNav() {
   useEffect(() => {
     if (pathname !== "/") return;
 
-    const sectionIds = ["timeline", "contact"];
+    const sectionIds = ["timeline", "explore", "contact"];
 
     const handleScroll = () => {
       let current = "/";
@@ -41,25 +42,6 @@ export function FloatingNav() {
   function isActive(href: string) {
     if (pathname !== "/") return pathname.startsWith(href);
     return href === activeSection;
-  }
-
-  function smoothScrollTo(targetY: number) {
-    const start = window.scrollY;
-    const distance = targetY - start;
-    const duration = 800;
-    let startTime: number | null = null;
-
-    function step(timestamp: number) {
-      if (!startTime) startTime = timestamp;
-      const elapsed = timestamp - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-      const ease = progress < 0.5
-        ? 2 * progress * progress
-        : 1 - Math.pow(-2 * progress + 2, 2) / 2;
-      window.scrollTo(0, start + distance * ease);
-      if (elapsed < duration) requestAnimationFrame(step);
-    }
-    requestAnimationFrame(step);
   }
 
   return (

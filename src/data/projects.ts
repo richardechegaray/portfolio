@@ -5,11 +5,12 @@ export const projects: Project[] = [
     id: "portfolio",
     title: "Portfolio Website",
     description:
-      "This site! A timeline-driven personal portfolio with scroll-linked parallax animations, smooth scrolling, a floating nav, and a cursor spotlight effect. Built from scratch.",
+      "This site! A timeline-driven personal portfolio with scroll-linked parallax, a space theme with starfield and rocket cursor, smooth scrolling, and a floating nav. Built from scratch.",
+    longDescription:
+      "I wanted a portfolio that felt like me — not a template, not a wall of text, just something fun to scroll through. So I built this from scratch.\n\nThe homepage is a timeline of my career, education, and personal milestones. Each card animates in as you scroll, with a glowing progress line that grows down the center. Cards alternate left and right on desktop and stack on mobile. Clickable cards (like Penny) open into their own detail pages with photos and videos.\n\nThe space theme runs through the whole site — a multi-layer starfield with parallax scrolling, randomized twinkling, and shooting stars, all pure CSS and JS. A custom rocket SVG cursor replaces the default pointer, and a spotlight glow follows your mouse. The background is a deep near-black (#010a10) that lets the stars pop.\n\nBuilt with Next.js 16 (App Router) for routing and static generation, TypeScript for type safety, and Tailwind CSS v4 with custom theme variables for consistent styling. Framer Motion powers all the scroll-linked animations — the parallax hero, timeline progress line, and card fade-ins. Lenis handles the smooth buttery scrolling. Lucide React provides the icons.\n\nThe project pages, clips page, and blog are all statically generated from TypeScript data files — no CMS, no database. Videos are served from a local /videos directory tracked with Git LFS. The whole thing is deployed on Vercel.",
     techStack: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion", "Lenis"],
     githubUrl: "https://github.com/richardechegaray/portfolio",
     liveUrl: "/",
-    featured: true,
   },
   {
     id: "synthetic-data-pipeline",
@@ -17,12 +18,11 @@ export const projects: Project[] = [
     description:
       "Developed a pipeline that generates labeled synthetic training data from CAD models, replacing costly manual labeling for industrial bin-picking robots. Built with BlenderProc, domain randomization, and Mask-RCNN — achieved AP 100 on the ping pong dataset and AP 73.9 on the package dataset using only synthetic data. Capstone project at UBC in partnership with DaoAI Robotics.",
     longDescription:
-      "Partnered with DaoAI Robotics to build a synthetic data generation pipeline that takes CAD models as input and outputs labeled RGB-D images for training computer vision models used in industrial bin-picking. The pipeline leveraged BlenderProc for photorealistic rendering with domain randomization (lighting, object placement, camera angles) and physics simulation for realistic object positioning. Trained Mask-RCNN models on purely synthetic data and validated against real-world images — achieving AP 100 on a calibration dataset and AP 73.9 on a complex package detection task. Built as a UBC Engineering Physics capstone project (ENPH 479).",
+      "Partnered with DaoAI Robotics to build a synthetic data generation pipeline that takes CAD models as input and outputs labeled RGB-D images for training computer vision models used in industrial bin-picking. The pipeline leveraged BlenderProc for photorealistic rendering with domain randomization (lighting, object placement, camera angles) and physics simulation for realistic object positioning. Trained Mask-RCNN models on purely synthetic data and validated against real-world images — achieving AP 100 on a calibration dataset and AP 73.9 on a complex package detection task. Built as a UBC Engineering Physics capstone project (ENPH 479).\n\nSee the full report below for more details.",
     image: "/images/479.png",
     date: "2022",
     techStack: ["BlenderProc", "Mask-RCNN", "Python", "Domain Randomization"],
     pdfUrl: "/files/457report.pdf",
-    featured: true,
   },
   {
     id: "point-cloud-visualization",
@@ -34,7 +34,6 @@ export const projects: Project[] = [
     image: "/images/459.png",
     date: "2022",
     techStack: ["Unity", "Python", "Potree", "C#"],
-    featured: true,
   },
   {
     id: "quickpick",
@@ -44,12 +43,11 @@ export const projects: Project[] = [
     longDescription:
       "Built quickPick, a mobile app that helps groups make decisions through a Tinder-style swiping interface. Users log in via Facebook, create custom lists of options (movies, restaurants, activities, etc.), and host real-time sessions that others join with a 5-digit pin. Everyone swipes through the list independently, and once all participants finish, the app displays ranked results based on the group's collective preferences.\n\nThe Android frontend was built in Java with automated UI tests covering login flows, session joining, and swiping. The backend used Node.js with MongoDB for storing sessions, lists, and users, and Firebase for real-time push notifications to keep all participants in sync. Integrated Unsplash's image API to auto-populate lists with relevant photos, and built a URL caching layer to work around rate limits. Achieved 99.7% backend line coverage with comprehensive unit, integration, and non-functional requirement tests covering latency, scalability (50+ concurrent users), and privacy.",
     image: "/images/quickpick.jpg",
-    videos: ["/images/quickpick.mp4"],
+    videos: ["/videos/quickpick.mp4"],
     videoCaption: "Demoing the user flow for creating and voting in a session",
     date: "2021",
     techStack: ["Android", "Java", "Node.js", "MongoDB", "Firebase"],
     githubUrl: "https://github.com/richardechegaray/quickPick",
-    featured: true,
   },
   {
     id: "robot-simulation",
@@ -64,7 +62,7 @@ export const projects: Project[] = [
     date: "2021",
     techStack: ["Python", "ROS", "Gazebo", "Keras", "OpenCV"],
     githubUrl: "https://github.com/richardechegaray/enph353-ubc-parkingrobot-competition",
-    featured: true,
+    pdfUrl: "/files/353report.pdf",
   },
   {
     id: "greeneats",
@@ -78,7 +76,6 @@ export const projects: Project[] = [
     techStack: ["Java", "Kotlin", "Android", "Firebase", "Azure Speech", "Firebase MLKit"],
     githubUrl: "https://github.com/alexcarbo/greenEats",
     liveUrl: "https://devpost.com/software/greeneats",
-    featured: true,
   },
   {
     id: "autonomous-robot",
@@ -89,10 +86,9 @@ export const projects: Project[] = [
       "Served as software lead for a team that built a fully autonomous robot including mechanical, electrical, and software design. Designed and implemented an integration testing plan across iterative design cycles to catch issues early. Placed 3rd in UBC's Autonomous Robotics Competition.\n\nOur strategy was to sweep up Avenger plushies scattered across the course by driving with open arms, then closing to corral them all at once. The robot used signal convolution to filter IR beacon frequencies and identify the correct team bin, then drove the plushies to the right destination. Navigation and pickup were handled via PID control, all programmed in C++.",
     image: "/images/doorsTogether.JPG",
     images: ["/images/doorsClosed.JPG", "/images/doorsOpen.JPG"],
-    videos: ["/images/perfect_run.mp4"],
+    videos: ["/videos/perfect_run.mp4"],
     date: "2019",
     techStack: ["C++", "PID Control", "Signal Processing"],
     githubUrl: "https://github.com/richardechegaray/enph253",
-    featured: true,
   },
 ];

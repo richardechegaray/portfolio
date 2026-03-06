@@ -40,13 +40,22 @@ export function Timeline({ events }: TimelineProps) {
   return (
     <div ref={containerRef} className="relative">
       {/* Static background line — left on mobile, center on desktop */}
-      <div className="absolute left-5 md:left-1/2 top-0 bottom-0 w-px bg-border" />
+      <div className="absolute left-5 md:left-1/2 top-0 bottom-0 w-px bg-border/40" />
 
-      {/* Animated progress line */}
+      {/* Animated progress line with glow */}
       <motion.div
         style={{ height: lineHeight }}
-        className="absolute left-5 md:left-1/2 top-0 w-px bg-gradient-to-b from-blue-400 via-indigo-500 via-60% to-purple-500/50 origin-top"
-      />
+        className="absolute left-5 md:left-1/2 top-0 w-px origin-top"
+      >
+        {/* Core line */}
+        <div className="absolute inset-0 w-px bg-gradient-to-b from-blue-400 via-indigo-500 via-60% to-purple-500/50" />
+        {/* Inner glow */}
+        <div className="absolute inset-0 w-[3px] -left-px bg-gradient-to-b from-blue-400/40 via-indigo-500/40 via-60% to-purple-500/20 blur-[2px]" />
+        {/* Outer glow */}
+        <div className="absolute inset-0 w-[8px] -left-[3.5px] bg-gradient-to-b from-blue-400/20 via-indigo-500/20 via-60% to-purple-500/10 blur-[6px]" />
+        {/* Bright tip */}
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 h-8 w-[6px] rounded-full bg-indigo-400/60 blur-[4px]" />
+      </motion.div>
 
       {years.map((year) => (
         <div key={year}>

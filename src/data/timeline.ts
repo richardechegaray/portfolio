@@ -9,7 +9,16 @@ export const timelineEvents: TimelineEvent[] = [
     icon: "🐶",
     description:
       "When I moved to SF I knew I wanted to rescue a dog ASAP. I ended up getting a puppy before having a couch, tv, or bed 🤣 best decision ever",
+    longDescription:
+      "When I moved to the Bay Area for Meta, the very first thing on my mind was rescuing a dog. I ended up adopting Penny before I even had a couch, TV, or bed — and it was the best decision I've ever made.\n\nPenny is a Husky Shepherd mix I rescued from a the SF SPCA. She was 3 months old when I brought her home. She immediately became my adventure buddy — hikes, beach trips, road trips up and down the California coast.\n\nShe's destroyed more shoes than I can count, stolen food off the counter more times than I'd like to admit, and somehow always manages to take up the entire bed. Wouldn't trade it for anything.",
     image: "/images/pennyDestruction.png",
+    images: [
+      "/images/richAndPenny.png",
+      "/images/pennycuddle.jpg",
+      "/images/pennyDolo.jpg",
+      "/images/pennyBday.png",
+    ],
+    videos: ["/videos/pennyPlaying.mp4"],
     type: "personal",
   },
   {
