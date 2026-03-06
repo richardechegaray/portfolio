@@ -80,6 +80,12 @@ vercel --prod --yes
 - [ ] **Back to main from Projects/Clips/Blog** — BackLink lands in the middle of the timeline instead of the explore section. Projects consistently fails; Clips and Blog initially land wrong then jump to mid-timeline. Penny back button works correctly. Likely a timing or element-finding issue specific to `/#explore`.
 - [ ] **Video initial render speed** — videos (e.g., Penny section) feel slow to appear on first load. Investigate preloading, poster frames, or placeholder thumbnails.
 
+### Design / Content
+- [ ] **Home page feels like a eulogy** — going straight into the timeline feels off. Rethink the homepage flow so it feels more like a living portfolio, not a memorial.
+- [ ] **UBC start date** — should be 2017, not 2018.
+- [ ] **RecycleSmart picture** — replace with a better image.
+- [ ] **Timeline ordering** — most recent item is Penny (non-technical). Reconsider whether the first thing visitors see should be a personal item vs a professional/technical one.
+
 ## License
 
 MIT
