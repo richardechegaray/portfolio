@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowDown, FolderGit2, Film, FileText, Github, Linkedin, Mail } from "lucide-react";
 import Link from "next/link";
@@ -33,6 +33,16 @@ export default function TimelinePage() {
   const heroY = useTransform(scrollYProgress, [0, 1], [0, -100]);
   const heroOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
 
+  // Disable parallax on mobile for better performance and layout
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 768px)");
+    setIsMobile(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
+
   return (
     <>
       {/* Scroll progress indicator */}
@@ -53,26 +63,26 @@ export default function TimelinePage() {
           <img
             src="/images/profile.jpg"
             alt=""
-            className="h-[100vh] w-auto object-cover opacity-45 mask-[radial-gradient(ellipse_at_center,black_25%,transparent_65%)]"
+            className="h-[100vh] w-auto object-cover opacity-45 mask-[linear-gradient(to_bottom,transparent_10%,black_40%,black_60%,transparent_90%)]"
           />
         </div>
 
-        {/* Nebula glow cluster */}
+        {/* Nebula glow cluster — smaller on mobile for performance */}
         <div className="pointer-events-none absolute inset-0">
-          <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[700px] w-[700px] rounded-full bg-indigo-500/8 blur-[140px]" />
-          <div className="absolute top-1/3 left-[60%] h-[500px] w-[500px] rounded-full bg-purple-600/6 blur-[130px]" />
-          <div className="absolute bottom-1/4 left-1/3 h-[400px] w-[400px] rounded-full bg-fuchsia-500/4 blur-[120px]" />
-          <div className="absolute top-[60%] left-[20%] h-[350px] w-[350px] rounded-full bg-blue-600/5 blur-[100px]" />
+          <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[350px] w-[350px] md:h-[700px] md:w-[700px] rounded-full bg-indigo-500/8 blur-[80px] md:blur-[140px]" />
+          <div className="absolute top-1/3 left-[60%] h-[250px] w-[250px] md:h-[500px] md:w-[500px] rounded-full bg-purple-600/6 blur-[70px] md:blur-[130px]" />
+          <div className="absolute bottom-1/4 left-1/3 h-[200px] w-[200px] md:h-[400px] md:w-[400px] rounded-full bg-fuchsia-500/4 blur-[60px] md:blur-[120px]" />
+          <div className="absolute top-[60%] left-[20%] h-[175px] w-[175px] md:h-[350px] md:w-[350px] rounded-full bg-blue-600/5 blur-[50px] md:blur-[100px]" />
         </div>
 
         <motion.div
-          style={{ y: heroY, opacity: heroOpacity }}
-          className="relative z-10 text-center max-w-2xl"
+          style={isMobile ? undefined : { y: heroY, opacity: heroOpacity }}
+          className="relative z-10 text-center max-w-2xl -mt-36"
         >
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.7, delay: 0.5 }}
             className="text-sm font-medium uppercase tracking-widest text-accent-light"
           >
             {siteConfig.title}
@@ -81,7 +91,7 @@ export default function TimelinePage() {
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
+            transition={{ duration: 0.8, delay: 0.7 }}
             className="mt-6 font-display text-4xl font-bold leading-tight text-foreground sm:text-6xl md:text-8xl lg:text-9xl"
           >
             {siteConfig.name}
@@ -90,7 +100,7 @@ export default function TimelinePage() {
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.25 }}
+            transition={{ duration: 0.8, delay: 0.95 }}
             className="mx-auto mt-6 max-w-lg text-lg text-[#b0bec9] md:text-xl"
           >
             {siteConfig.tagline}
@@ -99,7 +109,7 @@ export default function TimelinePage() {
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.35 }}
+            transition={{ duration: 0.8, delay: 1.1 }}
             className="mx-auto mt-4 max-w-lg text-sm leading-relaxed text-[#b0bec9]"
           >
             Born and raised in Vancouver. I love sports, music, piano, video games (peep the clips section) — and building things that make people&apos;s lives easier.
@@ -108,7 +118,7 @@ export default function TimelinePage() {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.5 }}
+            transition={{ duration: 0.8, delay: 1.3 }}
             className="mt-12"
           >
             <button
@@ -175,7 +185,7 @@ export default function TimelinePage() {
         <h2 className="font-display text-3xl font-bold text-foreground md:text-4xl">
           Contact Me
         </h2>
-        <p className="mt-2 text-muted text-lg">Feel free to reach out — I&apos;d love to connect.</p>
+        <p className="mt-2 text-muted text-lg">Feel free to reach out — I&apos;d love to connect!</p>
 
         <div className="mt-8 flex flex-wrap gap-4">
           <a

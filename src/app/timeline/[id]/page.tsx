@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { timelineEvents } from "@/data/timeline";
 import { BackLink } from "@/components/ui/BackLink";
+import { ExternalLink } from "lucide-react";
 
 interface TimelineDetailPageProps {
   params: Promise<{ id: string }>;
@@ -27,6 +28,7 @@ export default async function TimelineDetailPage({ params }: TimelineDetailPageP
           <img
             src={event.image}
             alt={event.title}
+            loading="lazy"
             className="w-full object-cover"
           />
         </div>
@@ -38,6 +40,18 @@ export default async function TimelineDetailPage({ params }: TimelineDetailPageP
       </h1>
 
       <p className="mt-2 text-sm text-muted">{event.date}</p>
+
+      {event.link && (
+        <a
+          href={event.link.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-accent-light hover:text-accent transition-colors"
+        >
+          {event.link.label}
+          <ExternalLink size={14} />
+        </a>
+      )}
 
       <div className="mt-8 text-muted leading-relaxed whitespace-pre-line">
         {event.longDescription}
@@ -55,6 +69,7 @@ export default async function TimelineDetailPage({ params }: TimelineDetailPageP
                 <img
                   src={img}
                   alt={event.title}
+                  loading="lazy"
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -71,6 +86,8 @@ export default async function TimelineDetailPage({ params }: TimelineDetailPageP
               src={vid}
               controls
               playsInline
+              preload="metadata"
+              poster={event.videoPoster || event.image}
               className="w-full rounded-xl border border-border"
             />
           ))}

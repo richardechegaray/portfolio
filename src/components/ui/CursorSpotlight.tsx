@@ -8,8 +8,19 @@ const SPOTLIGHT_SIZE = 500;
 export function CursorSpotlight() {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [visible, setVisible] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
+    const mq = window.matchMedia("(pointer: coarse)");
+    setIsMobile(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
+
+  useEffect(() => {
+    if (isMobile) return;
+
     function handleMouseMove(e: MouseEvent) {
       setPosition({ x: e.clientX, y: e.clientY });
       if (!visible) setVisible(true);
@@ -26,7 +37,9 @@ export function CursorSpotlight() {
       window.removeEventListener("mousemove", handleMouseMove);
       document.removeEventListener("mouseleave", handleMouseLeave);
     };
-  }, [visible]);
+  }, [visible, isMobile]);
+
+  if (isMobile) return null;
 
   return (
     <motion.div

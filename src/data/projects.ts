@@ -44,6 +44,7 @@ export const projects: Project[] = [
       "Built quickPick, a mobile app that helps groups make decisions through a Tinder-style swiping interface. Users log in via Facebook, create custom lists of options (movies, restaurants, activities, etc.), and host real-time sessions that others join with a 5-digit pin. Everyone swipes through the list independently, and once all participants finish, the app displays ranked results based on the group's collective preferences.\n\nThe Android frontend was built in Java with automated UI tests covering login flows, session joining, and swiping. The backend used Node.js with MongoDB for storing sessions, lists, and users, and Firebase for real-time push notifications to keep all participants in sync. Integrated Unsplash's image API to auto-populate lists with relevant photos, and built a URL caching layer to work around rate limits. Achieved 99.7% backend line coverage with comprehensive unit, integration, and non-functional requirement tests covering latency, scalability (50+ concurrent users), and privacy.",
     image: "/images/quickpick.jpg",
     videos: ["/videos/quickpick.mp4"],
+    videoPoster: "/images/quickpick.jpg",
     videoCaption: "Demoing the user flow for creating and voting in a session",
     date: "2021",
     techStack: ["Android", "Java", "Node.js", "MongoDB", "Firebase"],
@@ -57,8 +58,10 @@ export const projects: Project[] = [
     longDescription:
       "Programmed a simulated autonomous vehicle in Python using ROS and Gazebo for UBC's ENPH 353 machine learning competition. The car navigated an urban course using computer vision for line following, detected crosswalks and waited for pedestrians to pass, and read license plates mounted throughout the environment.\n\nBuilt three specialized CNNs in Keras — one for letters, one for numbers, and one for parking spot labels — along with four backup CNNs to handle common misclassifications (e.g. 8 predicted as 0, B predicted as A). Generated synthetic training data using OpenCV augmentations including Gaussian blur, rotation, and perspective transforms. Navigation was implemented as a state machine that traversed an inner loop first for high-value plates, then looped the outer ring indefinitely. Placed 3rd out of 16 teams with a near-perfect score.",
     image: "/images/birdseye.PNG",
-    images: ["/images/origframe.PNG", "/images/origbluecontours.PNG", "/images/whitecontours.PNG"],
+    images: ["/images/origbluecontours.PNG", "/images/whitecontours.PNG", "/images/origframe.PNG"],
     imageCaption: "Experimenting with different contours",
+    videos: ["/videos/carDetection.mp4"],
+    videoCaption: "Car detection in action",
     date: "2021",
     techStack: ["Python", "ROS", "Gazebo", "Keras", "OpenCV"],
     githubUrl: "https://github.com/richardechegaray/enph353-ubc-parkingrobot-competition",
@@ -71,7 +74,8 @@ export const projects: Project[] = [
       "Built greenEats, a grocery management Android app that tracks food expiration dates to reduce waste. Users could log groceries via receipt scanning (OCR), voice recognition (Azure Speech Services), or manual input, and get recipe recommendations based on what's about to expire. Won 1st place and the Wolfram Award at nwHacks 2020. Built with Java, Firebase, and Azure.",
     longDescription:
       "Built greenEats at nwHacks 2020 — an Android app tackling food waste by helping users track groceries and expiration dates. The app offered three input methods: receipt scanning using Firebase MLKit Vision for OCR, voice recognition powered by Azure Speech Services (my contribution), and manual entry. A virtual fridge tracked inventory and notified users of expiring items, while a custom recipe API suggested meals based on ingredients about to go bad. I also worked on front-end design in Android Studio. Built with Java, Firebase, Azure, and a custom stdlib API. Won 1st place overall and the Wolfram Award. Link above points to the original devpost.",
-    image: "/images/nwhacks20.png",
+    image: "/images/nwhacksWorking.jpg",
+    images: ["/images/nwhacks20.png"],
     date: "January 2020",
     techStack: ["Java", "Kotlin", "Android", "Firebase", "Azure Speech", "Firebase MLKit"],
     githubUrl: "https://github.com/alexcarbo/greenEats",
@@ -85,7 +89,7 @@ export const projects: Project[] = [
     longDescription:
       "Served as software lead for a team that built a fully autonomous robot including mechanical, electrical, and software design. Designed and implemented an integration testing plan across iterative design cycles to catch issues early. Placed 3rd in UBC's Autonomous Robotics Competition.\n\nOur strategy was to sweep up Avenger plushies scattered across the course by driving with open arms, then closing to corral them all at once. The robot used signal convolution to filter IR beacon frequencies and identify the correct team bin, then drove the plushies to the right destination. Navigation and pickup were handled via PID control, all programmed in C++.",
     image: "/images/doorsTogether.JPG",
-    images: ["/images/doorsClosed.JPG", "/images/doorsOpen.JPG"],
+    images: ["/images/doorsClosed.JPG", "/images/doorsOpen.JPG", "/images/robotGif.GIF"],
     videos: ["https://youtu.be/dZkfXFzqVAU"],
     date: "2019",
     techStack: ["C++", "PID Control", "Signal Processing"],

@@ -35,15 +35,30 @@ const LAYERS = [
   { count: 25, size: [2.5, 4] as [number, number], opacity: [0.8, 1] as [number, number], twinkle: [1, 2.5] as [number, number], speed: 0.1 },
 ];
 
+const MOBILE_COUNTS = [30, 20, 10];
+
 export function Starfield() {
   const [layers, setLayers] = useState<Star[][]>([]);
   const [scrollY, setScrollY] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    setLayers(LAYERS.map((l) => generateStars(l.count, l.size, l.opacity, l.twinkle)));
+    const mq = window.matchMedia("(max-width: 768px)");
+    setIsMobile(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
   }, []);
 
   useEffect(() => {
+    setLayers(LAYERS.map((l, i) => generateStars(
+      isMobile ? MOBILE_COUNTS[i] : l.count,
+      l.size, l.opacity, l.twinkle
+    )));
+  }, [isMobile]);
+
+  useEffect(() => {
+    if (isMobile) return;
     let ticking = false;
     function onScroll() {
       if (!ticking) {
@@ -56,7 +71,7 @@ export function Starfield() {
     }
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  }, [isMobile]);
 
   if (layers.length === 0) return null;
 
@@ -67,7 +82,7 @@ export function Starfield() {
         <div
           key={layerIndex}
           className="absolute inset-0"
-          style={{ transform: `translateY(${scrollY * -LAYERS[layerIndex].speed}px)` }}
+          style={{ transform: isMobile ? undefined : `translateY(${scrollY * -LAYERS[layerIndex].speed}px)` }}
         >
           {stars.map((star) => (
             <div
@@ -88,10 +103,14 @@ export function Starfield() {
         </div>
       ))}
 
-      {/* Shooting stars */}
-      <div className="shooting-star shooting-star-1" />
-      <div className="shooting-star shooting-star-2" />
-      <div className="shooting-star shooting-star-3" />
+      {/* Shooting stars — hidden on mobile */}
+      {!isMobile && (
+        <>
+          <div className="shooting-star shooting-star-1" />
+          <div className="shooting-star shooting-star-2" />
+          <div className="shooting-star shooting-star-3" />
+        </>
+      )}
     </div>
   );
 }

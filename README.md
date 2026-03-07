@@ -69,22 +69,25 @@ vercel --prod --yes
 
 ## TODO
 
-### Mobile Bugs
-- [ ] **Sidebar overlay** — floating nav overlays main content on mobile. Find a better mobile nav pattern (e.g., bottom tab bar, hamburger drawer that pushes content, or inline nav).
-- [ ] **Performance / lag** — site feels laggy on mobile. Investigate: Lenis on touch devices, Framer Motion scroll animations, starfield rendering, excessive re-renders.
-- [ ] **Hero layout on mobile** — hero section renders poorly on small screens. Consider loading all hero content immediately (skip scroll-triggered animations on mobile).
-- [ ] **Timeline image loading** — images load too slowly relative to scroll speed. Look into lazy loading strategy, placeholder blurs, or preloading visible images.
-- [ ] **Embedded PDF on mobile** — PDF iframe doesn't display well on small screens. Consider a download link fallback or responsive PDF viewer.
+### Done
+- [x] **Sidebar overlay** — bottom tab bar on mobile, hamburger on desktop.
+- [x] **Performance / lag** — disabled Lenis on touch devices, reduced starfield star counts, disabled CursorSpotlight on mobile.
+- [x] **Hero layout on mobile** — skip parallax animations on small screens, smaller nebula blurs.
+- [x] **Timeline image loading** — added `loading="lazy"` to all images.
+- [x] **Embedded PDF on mobile** — hidden iframe on mobile, added download link fallback.
+- [x] **Video initial render speed** — added `preload="metadata"` and poster frames to all videos.
+- [x] **UBC start date** — fixed to 2017.
+- [x] **RecycleSmart picture** — replaced with pelloInstalled.jpg, added full detail page with gallery.
+- [x] **Timeline ordering** — Meta now appears first.
+- [x] **Image compression** — compressed images from ~110MB to ~26MB.
+- [x] **Hero animations** — staggered fade-in with delays, profile photo mask gradient.
+- [x] **Responsive nav** — hamburger and nav items scale with viewport via clamp().
+- [x] **Read more affordance** — clickable timeline cards show "Read more >" hint.
+- [x] **Removed Meta blog post** — keeping only the portfolio blog post for now.
 
-### Navigation Bugs
-- [ ] **Back to main from Projects/Clips/Blog** — BackLink lands in the middle of the timeline instead of the explore section. Projects consistently fails; Clips and Blog initially land wrong then jump to mid-timeline. Penny back button works correctly. Likely a timing or element-finding issue specific to `/#explore`.
-- [ ] **Video initial render speed** — videos (e.g., Penny section) feel slow to appear on first load. Investigate preloading, poster frames, or placeholder thumbnails.
-
-### Design / Content
-- [ ] **Home page feels like a eulogy** — going straight into the timeline feels off. Rethink the homepage flow so it feels more like a living portfolio, not a memorial.
-- [ ] **UBC start date** — should be 2017, not 2018.
-- [ ] **RecycleSmart picture** — replace with a better image.
-- [ ] **Timeline ordering** — most recent item is Penny (non-technical). Reconsider whether the first thing visitors see should be a personal item vs a professional/technical one.
+### Remaining
+- [ ] **BackLink navigation** — BackLink lands in the middle of the timeline instead of the explore section. `/#explore` doesn't scroll correctly.
+- [ ] **Homepage flow** — rethink the flow so it feels more like a living portfolio.
 
 ## License
 

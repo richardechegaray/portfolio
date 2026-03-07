@@ -13,7 +13,7 @@ export default function BlogPage() {
       >
         &larr; Back to main
       </BackLink>
-      <PageHeader title="Blog" description="Thoughts, tutorials, and stories." />
+      <PageHeader title="Blog" description="More posts to come soon.. stay tuned" />
       <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2">
         {blogPosts.map((post, i) => (
           <ScrollReveal key={post.slug} delay={i * 0.1}>

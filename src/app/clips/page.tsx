@@ -15,7 +15,7 @@ export default function ClipsPage() {
       </BackLink>
       <PageHeader
         title="Clips"
-        description="Highlights from volleyball, concerts, hangouts with friends, etc."
+        description="Highlights! Sports, concerts, etc."
       />
       <h3 className="mt-10 font-display text-xl font-bold text-foreground md:text-2xl">
         Volleyball

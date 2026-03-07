@@ -15,7 +15,7 @@ export default function ProjectsPage() {
       </BackLink>
       <PageHeader
         title="Projects"
-        description="Things I've built and contributed to"
+        description="Things I've built and contributed to. Click on a project to learn more"
       />
 
       <div className="mt-8 space-y-6">

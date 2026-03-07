@@ -8,6 +8,7 @@ export interface TimelineEvent {
   image?: string;
   images?: string[];
   videos?: string[];
+  videoPoster?: string;
   tags?: string[];
   link?: {
     label: string;
@@ -27,6 +28,7 @@ export interface Project {
   images?: string[];
   imageCaption?: string;
   videos?: string[];
+  videoPoster?: string;
   videoCaption?: string;
   date?: string;
   techStack: string[];

@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import Link from "next/link";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { ExternalLink } from "lucide-react";
+import { ChevronRight, ExternalLink } from "lucide-react";
 import { Tag } from "@/components/ui/Tag";
 import type { TimelineEvent } from "@/lib/types";
 
@@ -20,7 +20,7 @@ const typeIcons: Record<TimelineEvent["type"], string> = {
   project: "🛠️",
 };
 
-function CardContent({ event }: { event: TimelineEvent }) {
+function CardContent({ event, isLinked }: { event: TimelineEvent; isLinked: boolean }) {
   return (
     <>
       {event.image && (
@@ -29,6 +29,7 @@ function CardContent({ event }: { event: TimelineEvent }) {
           <img
             src={event.image}
             alt={event.title}
+            loading="lazy"
             className="w-full object-cover"
           />
         </div>
@@ -55,7 +56,13 @@ function CardContent({ event }: { event: TimelineEvent }) {
           </div>
         )}
 
-        {event.link && (
+        {isLinked && (
+          <span className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-accent-light group-hover:text-accent transition-colors">
+            Read more <ChevronRight size={14} />
+          </span>
+        )}
+
+        {event.link && !isLinked && (
           <a
             href={event.link.url}
             target="_blank"
@@ -107,10 +114,10 @@ export function TimelineCard({ event, side }: TimelineCardProps) {
       >
         {event.longDescription ? (
           <Link href={`/timeline/${event.id}`} className="block">
-            <CardContent event={event} />
+            <CardContent event={event} isLinked />
           </Link>
         ) : (
-          <CardContent event={event} />
+          <CardContent event={event} isLinked={false} />
         )}
       </motion.div>
     </div>

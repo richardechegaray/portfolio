@@ -29,6 +29,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           <img
             src={project.image}
             alt={project.title}
+            loading="lazy"
             className="w-full object-cover"
           />
         </div>
@@ -107,6 +108,9 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                   key={vid}
                   src={vid}
                   controls
+                  playsInline
+                  preload="metadata"
+                  poster={project.videoPoster || project.image}
                   className="w-full rounded-xl border border-border"
                 />
               );
@@ -122,16 +126,21 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
       {project.images && project.images.length > 0 && (
         <div className="mt-8">
-          <div className={project.images.length >= 3 ? "grid grid-cols-1 sm:grid-cols-3 gap-4" : "space-y-4"}>
-            {project.images.map((img) => (
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {project.images.map((img, i) => (
               <div
                 key={img}
-                className="overflow-hidden rounded-xl border border-border"
+                className={`overflow-hidden rounded-xl border border-border${
+                  project.images!.length % 2 === 1 && i === project.images!.length - 1
+                    ? " sm:col-span-2"
+                    : ""
+                }`}
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={img}
                   alt={project.title}
+                  loading="lazy"
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -147,12 +156,23 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
       {project.pdfUrl && (
         <div className="mt-8">
+          {/* Desktop: embedded PDF */}
           <iframe
             src={project.pdfUrl}
-            className="w-full rounded-xl border border-border"
+            className="hidden md:block w-full rounded-xl border border-border"
             style={{ height: "85vh" }}
             title={`${project.title} PDF`}
           />
+          {/* Mobile: download link */}
+          <a
+            href={project.pdfUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex md:hidden items-center justify-center gap-2 rounded-xl border border-border bg-surface/60 px-5 py-4 text-sm font-medium text-muted hover:text-foreground transition-colors"
+          >
+            <FileText size={18} />
+            <span>View PDF</span>
+          </a>
         </div>
       )}
     </div>

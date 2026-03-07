@@ -44,12 +44,27 @@ export function FloatingNav() {
     return href === activeSection;
   }
 
+  function handleNavClick(e: React.MouseEvent, href: string) {
+    setIsOpen(false);
+    if (href === "/" && pathname === "/") {
+      e.preventDefault();
+      smoothScrollTo(0);
+    } else if (href.startsWith("/#") && pathname === "/") {
+      e.preventDefault();
+      const el = document.querySelector(href.replace("/", ""));
+      if (el) {
+        const top = el.getBoundingClientRect().top + window.scrollY;
+        smoothScrollTo(top);
+      }
+    }
+  }
+
   return (
     <>
-      {/* Toggle button — fixed top-left */}
+      {/* ===== Desktop: hamburger menu (hidden on mobile) ===== */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed top-5 left-5 z-[60] flex items-center justify-center text-muted transition-colors hover:text-foreground"
+        className="fixed top-5 left-5 z-[60] hidden md:flex items-center justify-center text-muted transition-colors hover:text-foreground"
         aria-label={isOpen ? "Close menu" : "Open menu"}
       >
         <AnimatePresence mode="wait" initial={false}>
@@ -61,7 +76,7 @@ export function FloatingNav() {
               exit={{ rotate: 90, opacity: 0 }}
               transition={{ duration: 0.15 }}
             >
-              <X size={18} />
+              <X className="h-[clamp(24px,2.5vw,36px)] w-[clamp(24px,2.5vw,36px)]" />
             </motion.div>
           ) : (
             <motion.div
@@ -71,13 +86,12 @@ export function FloatingNav() {
               exit={{ rotate: -90, opacity: 0 }}
               transition={{ duration: 0.15 }}
             >
-              <Menu size={18} />
+              <Menu className="h-[clamp(24px,2.5vw,36px)] w-[clamp(24px,2.5vw,36px)]" />
             </motion.div>
           )}
         </AnimatePresence>
       </button>
 
-      {/* Nav links — inline, no overlay */}
       <AnimatePresence>
         {isOpen && (
           <motion.nav
@@ -85,7 +99,7 @@ export function FloatingNav() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
-            className="fixed top-20 left-5 z-[58] flex flex-col gap-1"
+            className="fixed top-20 left-5 z-[58] hidden md:flex flex-col gap-1"
           >
             {navItems.map((item, i) => {
               const active = isActive(item.href);
@@ -98,27 +112,14 @@ export function FloatingNav() {
                 >
                   <Link
                     href={item.href}
-                    onClick={(e) => {
-                      setIsOpen(false);
-                      if (item.href === "/" && pathname === "/") {
-                        e.preventDefault();
-                        smoothScrollTo(0);
-                      } else if (item.href.startsWith("/#") && pathname === "/") {
-                        e.preventDefault();
-                        const el = document.querySelector(item.href.replace("/", ""));
-                        if (el) {
-                          const top = el.getBoundingClientRect().top + window.scrollY;
-                          smoothScrollTo(top);
-                        }
-                      }
-                    }}
-                    className={`flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors ${
+                    onClick={(e) => handleNavClick(e, item.href)}
+                    className={`flex items-center gap-3 rounded-lg px-3 py-2.5 text-[clamp(0.8rem,1.2vw,1rem)] font-medium transition-colors ${
                       active
                         ? "text-accent-light"
                         : "text-muted hover:text-foreground"
                     }`}
                   >
-                    <item.icon size={18} />
+                    <item.icon className="h-[clamp(16px,1.5vw,22px)] w-[clamp(16px,1.5vw,22px)]" />
                     {item.label}
                   </Link>
                 </motion.div>
@@ -127,6 +128,26 @@ export function FloatingNav() {
           </motion.nav>
         )}
       </AnimatePresence>
+
+      {/* ===== Mobile: fixed bottom tab bar ===== */}
+      <nav className="fixed bottom-0 left-0 right-0 z-[60] flex md:hidden items-center justify-around border-t border-border bg-background/90 backdrop-blur-md px-1 py-2 safe-bottom">
+        {navItems.map((item) => {
+          const active = isActive(item.href);
+          return (
+            <Link
+              key={item.href}
+              href={item.href}
+              onClick={(e) => handleNavClick(e, item.href)}
+              className={`flex flex-col items-center gap-0.5 px-2 py-1 text-[10px] font-medium transition-colors ${
+                active ? "text-accent-light" : "text-muted"
+              }`}
+            >
+              <item.icon size={20} />
+              <span>{item.label}</span>
+            </Link>
+          );
+        })}
+      </nav>
     </>
   );
 }

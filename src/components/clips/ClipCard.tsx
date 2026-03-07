@@ -35,7 +35,16 @@ export function ClipCard({ clip }: ClipCardProps) {
     >
       {/* Video / Thumbnail */}
       <div className="relative aspect-video bg-gray-800">
-        {isLocal ? (
+        {isLocal && playing ? (
+          <video
+            src={clip.videoUrl}
+            className="absolute inset-0 h-full w-full object-cover"
+            controls
+            playsInline
+            autoPlay
+            preload="metadata"
+          />
+        ) : isLocal && !clip.thumbnailUrl ? (
           <video
             src={clip.videoUrl}
             className="absolute inset-0 h-full w-full object-cover"

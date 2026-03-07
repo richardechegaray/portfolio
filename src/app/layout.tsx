@@ -36,7 +36,7 @@ export default function RootLayout({
         <SmoothScroll />
         <CursorSpotlight />
         <FloatingNav />
-        <main className="relative z-10">{children}</main>
+        <main className="relative z-10 pb-16 md:pb-0">{children}</main>
       </body>
     </html>
   );
