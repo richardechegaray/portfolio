@@ -88,6 +88,9 @@ vercel --prod --yes
 ### Remaining
 - [ ] **BackLink navigation** — BackLink lands in the middle of the timeline instead of the explore section. `/#explore` doesn't scroll correctly.
 - [ ] **Homepage flow** — rethink the flow so it feels more like a living portfolio.
+- [ ] **Image extensions** — normalize all image filenames to lowercase extensions (.jpg, .png, .gif).
+- [ ] **Project thumbnails & formatting** — fix 353 thumbnail, audit all project/event thumbnails, check image formatting and captions.
+- [ ] **Concert clips** — add concert clips to the clips section.
 
 ## License
 
