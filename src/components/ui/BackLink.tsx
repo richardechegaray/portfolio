@@ -24,7 +24,9 @@ export function BackLink({ href, children, className }: BackLinkProps) {
       const lenis = (window as unknown as { __lenis?: { stop: () => void; start: () => void; scrollTo: (target: HTMLElement, opts?: { immediate: boolean }) => void } }).__lenis;
       if (lenis) lenis.stop();
 
+      let cancelled = false;
       const scrollToHash = (retries = 0) => {
+        if (cancelled) return;
         const el = document.getElementById(hash);
         if (el) {
           if (lenis) {
@@ -40,6 +42,9 @@ export function BackLink({ href, children, className }: BackLinkProps) {
         }
       };
       requestAnimationFrame(scrollToHash);
+
+      // Cleanup: cancel retries if component unmounts during scroll
+      return () => { cancelled = true; if (lenis) lenis.start(); };
     }
   };
 

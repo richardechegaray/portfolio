@@ -47,7 +47,7 @@ public/
   images/           # Static images
   videos/           # Local video files (LFS)
   files/            # PDFs
-  rocket-cursor.svg # Custom cursor
+  images/rocket-cursor.svg # Custom cursor
 ```
 
 ## Running Locally
@@ -87,10 +87,23 @@ vercel --prod --yes
 
 ### Remaining
 - [ ] **BackLink navigation** — BackLink lands in the middle of the timeline instead of the explore section. `/#explore` doesn't scroll correctly.
-- [ ] **Homepage flow** — rethink the flow so it feels more like a living portfolio.
-- [ ] **Image extensions** — normalize all image filenames to lowercase extensions (.jpg, .png, .gif).
-- [ ] **Project thumbnails & formatting** — fix 353 thumbnail, audit all project/event thumbnails, check image formatting and captions.
+- [x] **Homepage flow** — rethink the flow so it feels more like a living portfolio.
+- [x] **Image extensions** — normalized all image filenames to lowercase extensions (.jpg, .png, .gif).
+- [x] **Resume in Contact** — added resume/CV link to the Contact Me section.
+- [x] **Project thumbnails & formatting** — fix 353 thumbnail, audit all project/event thumbnails, check image formatting and captions.
 - [ ] **Concert clips** — add concert clips to the clips section.
+- [x] **Website icon** — update the favicon/site icon.
+- [x] **Responsive UI audit** — verify UI on different screen sizes, especially the hero page.
+- [x] **Spotlight size** — configure CursorSpotlight size to scale with screen size.
+- [x] **Mobile hero text** — hero text now uses viewport-relative clamp() values, no longer covers face on different screen sizes.
+- [x] **Horizontal scroll on mobile** — fixed nebula blobs overflowing viewport, added overflow-hidden to hero and overflow-x: hidden to html/body.
+- [x] **Hero animation performance on mobile** — switched to GPU-composited opacity+scale animations instead of y-transforms, shorter durations.
+- [x] **Image compression (round 2)** — compressed graduation.jpg (1.7M→95K), ubcPic.jpg (558K→123K), marathon.jpg (4.2M→173K), cone test images (1.4M→~65K each).
+- [ ] **Clips naming** — "Clips" is ambiguous, make it clearer that it's for-fun content (gaming, music, etc.).
+- [x] **Firefox mobile nav bug** — bottom tab bar is floating/misaligned on Firefox mobile.
+- [x] **Double scrollbar** — remove duplicate scrollbar on the main page.
+- [x] **Marathon on timeline** — add marathon event to the timeline.
+- [x] **Hide Explore on mobile** — mobile already has the bottom tab bar with nav links, so the Explore section is redundant on small screens.
 
 ## License
 

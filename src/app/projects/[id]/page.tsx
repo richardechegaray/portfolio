@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { projects } from "@/data/projects";
 import { BackLink } from "@/components/ui/BackLink";
@@ -6,6 +7,20 @@ import { Github, ExternalLink, FileText } from "lucide-react";
 
 interface ProjectPageProps {
   params: Promise<{ id: string }>;
+}
+
+export function generateStaticParams() {
+  return projects.map((p) => ({ id: p.id }));
+}
+
+export async function generateMetadata({ params }: ProjectPageProps): Promise<Metadata> {
+  const { id } = await params;
+  const project = projects.find((p) => p.id === id);
+  if (!project) return {};
+  return {
+    title: `${project.title} | Richard Echegaray`,
+    description: project.description,
+  };
 }
 
 export default async function ProjectPage({ params }: ProjectPageProps) {
@@ -98,6 +113,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                 <div key={vid} className="aspect-video">
                   <iframe
                     src={`https://www.youtube.com/embed/${ytMatch[1]}`}
+                    title={`${project.title} video`}
                     className="w-full h-full rounded-xl border border-border"
                     allow="autoplay; encrypted-media"
                     allowFullScreen
@@ -111,6 +127,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                   playsInline
                   preload="metadata"
                   poster={project.videoPoster || project.image}
+                  aria-label={`${project.title} video`}
                   className="w-full rounded-xl border border-border"
                 />
               );

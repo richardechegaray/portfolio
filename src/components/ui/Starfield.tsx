@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useIsMobile } from "@/lib/hooks";
 
 interface Star {
   id: number;
@@ -39,16 +40,11 @@ const MOBILE_COUNTS = [30, 20, 10];
 
 export function Starfield() {
   const [layers, setLayers] = useState<Star[][]>([]);
-  const [scrollY, setScrollY] = useState(0);
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const mq = window.matchMedia("(max-width: 768px)");
-    setIsMobile(mq.matches);
-    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
-    mq.addEventListener("change", handler);
-    return () => mq.removeEventListener("change", handler);
-  }, []);
+  const isMobile = useIsMobile();
+  // Refs for each layer's DOM element so we can update transforms without re-renders.
+  // Bug: using setState(scrollY) caused React to re-render 145+ star divs on every
+  // animation frame during scroll, which is extremely wasteful.
+  const layerRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
     setLayers(LAYERS.map((l, i) => generateStars(
@@ -63,7 +59,10 @@ export function Starfield() {
     function onScroll() {
       if (!ticking) {
         requestAnimationFrame(() => {
-          setScrollY(window.scrollY);
+          const sy = window.scrollY;
+          layerRefs.current.forEach((el, i) => {
+            if (el) el.style.transform = `translateY(${sy * -LAYERS[i].speed}px)`;
+          });
           ticking = false;
         });
         ticking = true;
@@ -76,13 +75,13 @@ export function Starfield() {
   if (layers.length === 0) return null;
 
   return (
-    <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
+    <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden" aria-hidden="true">
       {/* Star layers */}
       {layers.map((stars, layerIndex) => (
         <div
           key={layerIndex}
+          ref={(el) => { layerRefs.current[layerIndex] = el; }}
           className="absolute inset-0"
-          style={{ transform: isMobile ? undefined : `translateY(${scrollY * -LAYERS[layerIndex].speed}px)` }}
         >
           {stars.map((star) => (
             <div

@@ -100,7 +100,7 @@ export function TimelineCard({ event, side }: TimelineCardProps) {
     >
       {/* Emoji marker — left-5 on mobile, center on desktop */}
       <div
-        className="absolute left-5 md:left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 z-10 flex h-10 w-10 items-center justify-center rounded-full border-2 border-accent bg-background shadow-[0_0_12px_rgba(99,102,241,0.3)]"
+        className="absolute left-5 md:left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 z-10 flex h-10 w-10 items-center justify-center rounded-full border-2 border-accent bg-background shadow-accent/30"
       >
         <span className="text-xl" role="img" aria-label={event.type}>
           {event.icon || typeIcons[event.type]}

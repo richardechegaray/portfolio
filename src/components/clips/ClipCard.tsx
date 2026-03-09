@@ -55,6 +55,7 @@ export function ClipCard({ clip }: ClipCardProps) {
         ) : playing && embedUrl ? (
           <iframe
             src={`${embedUrl}?autoplay=1${clip.startTime != null ? `&start=${clip.startTime}` : ""}${clip.endTime != null ? `&end=${clip.endTime}` : ""}`}
+            title={clip.title}
             className="absolute inset-0 h-full w-full"
             allow="autoplay; encrypted-media"
             allowFullScreen
@@ -70,6 +71,7 @@ export function ClipCard({ clip }: ClipCardProps) {
               <img
                 src={clip.thumbnailUrl}
                 alt={clip.title}
+                loading="lazy"
                 className="absolute inset-0 h-full w-full object-cover"
               />
             )}

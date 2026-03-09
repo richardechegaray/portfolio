@@ -6,9 +6,11 @@ export const siteConfig = {
   title: "Software Engineer",
   tagline:
     "I build the systems behind the products you use every day. Previously at Reality Labs, working on Audio for Meta Wearables.",
+  bio: "Born and raised in Vancouver, Canada. I love sports, music, piano, video games (peep the clips section) \u2014 and building things that make people\u2019s lives easier.",
   email: "richardechegaray@outlook.com",
   github: "https://github.com/richardechegaray",
   linkedin: "https://www.linkedin.com/in/richardechegaray/",
+  resumeUrl: "/files/resume.pdf",
 };
 
 export const navItems: NavItem[] = [

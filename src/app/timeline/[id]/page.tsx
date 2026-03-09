@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { timelineEvents } from "@/data/timeline";
 import { BackLink } from "@/components/ui/BackLink";
@@ -5,6 +6,22 @@ import { ExternalLink } from "lucide-react";
 
 interface TimelineDetailPageProps {
   params: Promise<{ id: string }>;
+}
+
+export function generateStaticParams() {
+  return timelineEvents
+    .filter((e) => e.longDescription)
+    .map((e) => ({ id: e.id }));
+}
+
+export async function generateMetadata({ params }: TimelineDetailPageProps): Promise<Metadata> {
+  const { id } = await params;
+  const event = timelineEvents.find((e) => e.id === id);
+  if (!event) return {};
+  return {
+    title: `${event.title} | Richard Echegaray`,
+    description: event.description,
+  };
 }
 
 export default async function TimelineDetailPage({ params }: TimelineDetailPageProps) {
@@ -88,6 +105,7 @@ export default async function TimelineDetailPage({ params }: TimelineDetailPageP
               playsInline
               preload="metadata"
               poster={event.videoPoster || event.image}
+              aria-label={`${event.title} video`}
               className="w-full rounded-xl border border-border"
             />
           ))}

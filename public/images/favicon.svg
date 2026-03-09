@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#05050f"/>
+      <stop offset="100%" style="stop-color:#0b0b22"/>
+    </linearGradient>
+
+    <linearGradient id="waveMain" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%"   style="stop-color:#0d1b6e;stop-opacity:0.1"/>
+      <stop offset="20%"  style="stop-color:#1a3fd4;stop-opacity:0.9"/>
+      <stop offset="40%"  style="stop-color:#2979ff;stop-opacity:1"/>
+      <stop offset="60%"  style="stop-color:#1565c0;stop-opacity:1"/>
+      <stop offset="80%"  style="stop-color:#1a3fd4;stop-opacity:0.9"/>
+      <stop offset="100%" style="stop-color:#0d1b6e;stop-opacity:0.1"/>
+    </linearGradient>
+
+    <linearGradient id="waveGlow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%"   style="stop-color:#1a3fd4;stop-opacity:0"/>
+      <stop offset="30%"  style="stop-color:#2979ff;stop-opacity:0.25"/>
+      <stop offset="50%"  style="stop-color:#448aff;stop-opacity:0.3"/>
+      <stop offset="70%"  style="stop-color:#2979ff;stop-opacity:0.25"/>
+      <stop offset="100%" style="stop-color:#1a3fd4;stop-opacity:0"/>
+    </linearGradient>
+
+    <filter id="blueGlow">
+      <feGaussianBlur stdDeviation="1.5" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <filter id="softGlow">
+      <feGaussianBlur stdDeviation="2.5" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="64" height="64" rx="12" fill="url(#bg)"/>
+
+  <!-- Thin glow halo — same path, very thin -->
+  <path
+    d="M1,32
+       C3,10  5,10  7,32
+       C9,54  11,54 13,32
+       C15,16 17,8  19,32
+       C21,56 23,48 25,32
+       C27,20 29,24 31,32
+       C33,40 35,44 37,32
+       C39,14 41,18 43,32
+       C45,52 47,46 49,32
+       C51,16 53,20 55,32
+       C57,46 59,42 63,32"
+    fill="none"
+    stroke="url(#waveGlow)"
+    stroke-width="2.5"
+    stroke-linecap="round"
+  />
+
+  <!-- Main wave — high freq, dramatically varying amplitude -->
+  <path
+    d="M1,32
+       C3,10  5,10  7,32
+       C9,54  11,54 13,32
+       C15,16 17,8  19,32
+       C21,56 23,48 25,32
+       C27,20 29,24 31,32
+       C33,40 35,44 37,32
+       C39,14 41,18 43,32
+       C45,52 47,46 49,32
+       C51,16 53,20 55,32
+       C57,46 59,42 63,32"
+    fill="none"
+    stroke="url(#waveMain)"
+    stroke-width="1.6"
+    stroke-linecap="round"
+    filter="url(#blueGlow)"
+  />
+
+  <!-- RE centered -->
+  <text
+    x="32"
+    y="32"
+    text-anchor="middle"
+    dominant-baseline="central"
+    font-family="Georgia, 'Times New Roman', serif"
+    font-size="23"
+    font-weight="700"
+    letter-spacing="2"
+    fill="white"
+    filter="url(#softGlow)"
+  >RE</text>
+</svg>

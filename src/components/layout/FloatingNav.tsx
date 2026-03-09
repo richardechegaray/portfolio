@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
@@ -10,27 +10,57 @@ import { smoothScrollTo } from "@/lib/utils";
 
 export function FloatingNav() {
   const [isOpen, setIsOpen] = useState(false);
+  const [hasAutoOpened, setHasAutoOpened] = useState(false);
   const [activeSection, setActiveSection] = useState("/");
   const pathname = usePathname();
 
+  // Auto-open nav when user scrolls past the hero section (one-shot per session)
+  useEffect(() => {
+    if (pathname !== "/" || hasAutoOpened) return;
+
+    const hero = document.getElementById("hero");
+    if (!hero) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) {
+          setIsOpen(true);
+          setHasAutoOpened(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0 }
+    );
+
+    observer.observe(hero);
+    return () => observer.disconnect();
+  }, [pathname, hasAutoOpened]);
+
+  // Scroll-spy: track which section is active.
+  // Bug fix: previously fired on every scroll pixel with getBoundingClientRect()
+  // for each section. Now throttled with requestAnimationFrame.
   useEffect(() => {
     if (pathname !== "/") return;
 
     const sectionIds = ["timeline", "explore", "contact"];
+    let ticking = false;
 
     const handleScroll = () => {
-      let current = "/";
-
-      for (const id of sectionIds) {
-        const el = document.getElementById(id);
-        if (!el) continue;
-        const top = el.getBoundingClientRect().top + window.scrollY;
-        if (window.scrollY + window.innerHeight / 2 >= top) {
-          current = `/#${id}`;
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        let current = "/";
+        for (const id of sectionIds) {
+          const el = document.getElementById(id);
+          if (!el) continue;
+          const top = el.getBoundingClientRect().top + window.scrollY;
+          if (window.scrollY + window.innerHeight / 2 >= top) {
+            current = `/#${id}`;
+          }
         }
-      }
-
-      setActiveSection(current);
+        setActiveSection(current);
+        ticking = false;
+      });
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -39,10 +69,23 @@ export function FloatingNav() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [pathname]);
 
-  function isActive(href: string) {
-    if (pathname !== "/") return pathname.startsWith(href);
-    return href === activeSection;
-  }
+  // Close menu on Escape key (standard accessible menu behavior)
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setIsOpen(false);
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [isOpen]);
+
+  const isActive = useCallback(
+    (href: string) => {
+      if (pathname !== "/") return pathname.startsWith(href);
+      return href === activeSection;
+    },
+    [pathname, activeSection]
+  );
 
   function handleNavClick(e: React.MouseEvent, href: string) {
     setIsOpen(false);
@@ -51,7 +94,8 @@ export function FloatingNav() {
       smoothScrollTo(0);
     } else if (href.startsWith("/#") && pathname === "/") {
       e.preventDefault();
-      const el = document.querySelector(href.replace("/", ""));
+      const hash = href.substring(href.indexOf("#"));
+      const el = document.querySelector(hash);
       if (el) {
         const top = el.getBoundingClientRect().top + window.scrollY;
         smoothScrollTo(top);
@@ -66,6 +110,8 @@ export function FloatingNav() {
         onClick={() => setIsOpen(!isOpen)}
         className="fixed top-5 left-5 z-[60] hidden md:flex items-center justify-center text-muted transition-colors hover:text-foreground"
         aria-label={isOpen ? "Close menu" : "Open menu"}
+        aria-expanded={isOpen}
+        aria-controls="desktop-nav"
       >
         <AnimatePresence mode="wait" initial={false}>
           {isOpen ? (
@@ -95,6 +141,8 @@ export function FloatingNav() {
       <AnimatePresence>
         {isOpen && (
           <motion.nav
+            id="desktop-nav"
+            aria-label="Main navigation"
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
@@ -113,6 +161,7 @@ export function FloatingNav() {
                   <Link
                     href={item.href}
                     onClick={(e) => handleNavClick(e, item.href)}
+                    aria-current={active ? "page" : undefined}
                     className={`flex items-center gap-3 rounded-lg px-3 py-2.5 text-[clamp(0.8rem,1.2vw,1rem)] font-medium transition-colors ${
                       active
                         ? "text-accent-light"
@@ -130,7 +179,10 @@ export function FloatingNav() {
       </AnimatePresence>
 
       {/* ===== Mobile: fixed bottom tab bar ===== */}
-      <nav className="fixed bottom-0 left-0 right-0 z-[60] flex md:hidden items-center justify-around border-t border-border bg-background/90 backdrop-blur-md px-1 py-2 safe-bottom">
+      <nav
+        aria-label="Mobile navigation"
+        className="fixed bottom-0 left-0 right-0 z-[60] flex md:hidden items-center justify-around border-t border-border bg-background supports-[backdrop-filter]:bg-background/90 supports-[backdrop-filter]:backdrop-blur-md px-1 py-2 pb-[max(0.5rem,env(safe-area-inset-bottom))]"
+      >
         {navItems.map((item) => {
           const active = isActive(item.href);
           return (
@@ -138,6 +190,7 @@ export function FloatingNav() {
               key={item.href}
               href={item.href}
               onClick={(e) => handleNavClick(e, item.href)}
+              aria-current={active ? "page" : undefined}
               className={`flex flex-col items-center gap-0.5 px-2 py-1 text-[10px] font-medium transition-colors ${
                 active ? "text-accent-light" : "text-muted"
               }`}

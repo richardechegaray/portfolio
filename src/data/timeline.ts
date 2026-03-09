@@ -2,6 +2,17 @@ import type { TimelineEvent } from "@/lib/types";
 
 export const timelineEvents: TimelineEvent[] = [
   {
+    id: "marathon",
+    date: "July 2023",
+    year: 2023,
+    title: "Ran My First Marathon",
+    icon: "🏃",
+    description:
+      "Crossed the finish line of my first ever marathon in 4 hours! An unforgettable experience pushing through the wall and making it to 26.2 miles.",
+    image: "/images/marathon.jpg",
+    type: "personal",
+  },
+  {
     id: "meta",
     date: "August 2022",
     year: 2022,
@@ -22,7 +33,7 @@ export const timelineEvents: TimelineEvent[] = [
     description:
       "When I moved to SF I knew I wanted to rescue a dog ASAP. I ended up getting a puppy before having a couch, tv, or bed 🤣 best decision ever",
     longDescription:
-      "When I moved to the Bay Area for Meta, the very first thing on my mind was rescuing a dog. I ended up adopting Penny before I even had a couch, TV, or bed — and it was the best decision I've ever made.\n\nPenny is a Husky Shepherd mix I rescued from a the SF SPCA. She was 3 months old when I brought her home. She immediately became my adventure buddy — hikes, beach trips, road trips up and down the California coast.\n\nShe's destroyed more shoes than I can count, stolen food off the counter more times than I'd like to admit, and somehow always manages to take up the entire bed. Wouldn't trade it for anything.",
+      "When I moved to the Bay Area for Meta, the very first thing on my mind was rescuing a dog. I ended up adopting Penny before I even had a couch, TV, or bed — and it was the best decision I've ever made.\n\nPenny is a Husky Shepherd mix I rescued from the SF SPCA. She was 3 months old when I brought her home. She immediately became my adventure buddy — hikes, beach trips, road trips up and down the California coast.\n\nShe's destroyed more shoes than I can count, stolen food off the counter more times than I'd like to admit, and somehow always manages to take up the entire bed. Wouldn't trade it for anything.",
     image: "/images/pennyDestruction.jpg",
     images: [
       "/images/richAndPenny.jpg",
@@ -119,7 +130,7 @@ export const timelineEvents: TimelineEvent[] = [
     title: "Started Engineering at UBC",
     icon: "🧑‍🎓",
     description:
-      "Kicked off my engineering degree at UBC. First year was general engineering before I declared Engineering Physics in second year.",
+      "Started my engineering degree at UBC in general engineering before declaring Engineering Physics in second year.",
     image: "/images/ubcPic.jpg",
     type: "education",
   },

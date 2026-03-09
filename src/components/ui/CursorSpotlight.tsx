@@ -1,21 +1,29 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
+import { useIsMobile } from "@/lib/hooks";
 
-const SPOTLIGHT_SIZE = 500;
+function getSpotlightSize() {
+  if (typeof window === "undefined") return 500;
+  return Math.min(window.innerWidth, window.innerHeight) * 0.35;
+}
 
 export function CursorSpotlight() {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [visible, setVisible] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
+  const isMobile = useIsMobile();
+  const [spotlightSize, setSpotlightSize] = useState(500);
+  // Use a ref for `visible` so the mousemove effect doesn't re-subscribe on every toggle.
+  // Bug: having `visible` in the deps array tore down & re-added listeners every time
+  // the cursor entered/left, causing unnecessary overhead.
+  const visibleRef = useRef(false);
 
   useEffect(() => {
-    const mq = window.matchMedia("(pointer: coarse)");
-    setIsMobile(mq.matches);
-    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
-    mq.addEventListener("change", handler);
-    return () => mq.removeEventListener("change", handler);
+    setSpotlightSize(getSpotlightSize());
+    const onResize = () => setSpotlightSize(getSpotlightSize());
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
   }, []);
 
   useEffect(() => {
@@ -23,10 +31,14 @@ export function CursorSpotlight() {
 
     function handleMouseMove(e: MouseEvent) {
       setPosition({ x: e.clientX, y: e.clientY });
-      if (!visible) setVisible(true);
+      if (!visibleRef.current) {
+        visibleRef.current = true;
+        setVisible(true);
+      }
     }
 
     function handleMouseLeave() {
+      visibleRef.current = false;
       setVisible(false);
     }
 
@@ -37,7 +49,7 @@ export function CursorSpotlight() {
       window.removeEventListener("mousemove", handleMouseMove);
       document.removeEventListener("mouseleave", handleMouseLeave);
     };
-  }, [visible, isMobile]);
+  }, [isMobile]);
 
   if (isMobile) return null;
 
@@ -50,12 +62,12 @@ export function CursorSpotlight() {
       <div
         className="absolute rounded-full"
         style={{
-          width: SPOTLIGHT_SIZE,
-          height: SPOTLIGHT_SIZE,
-          left: position.x - SPOTLIGHT_SIZE / 2,
-          top: position.y - SPOTLIGHT_SIZE / 2,
+          width: spotlightSize,
+          height: spotlightSize,
+          left: position.x - spotlightSize / 2,
+          top: position.y - spotlightSize / 2,
           background:
-            "radial-gradient(circle, rgba(99,102,241,0.15) 0%, rgba(99,102,241,0.06) 30%, transparent 70%)",
+            "radial-gradient(circle, color-mix(in srgb, var(--color-accent) 15%, transparent) 0%, color-mix(in srgb, var(--color-accent) 6%, transparent) 30%, transparent 70%)",
         }}
       />
     </motion.div>
