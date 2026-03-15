@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { useIsMobile } from "@/lib/hooks";
+import { useEffect, useMemo, useRef } from "react";
+import { useIsMobile, useHasMounted } from "@/lib/hooks";
 
 interface Star {
   id: number;
@@ -39,19 +39,24 @@ const LAYERS = [
 const MOBILE_COUNTS = [30, 20, 10];
 
 export function Starfield() {
-  const [layers, setLayers] = useState<Star[][]>([]);
   const isMobile = useIsMobile();
-  // Refs for each layer's DOM element so we can update transforms without re-renders.
-  // Bug: using setState(scrollY) caused React to re-render 145+ star divs on every
-  // animation frame during scroll, which is extremely wasteful.
+  const mounted = useHasMounted();
   const layerRefs = useRef<(HTMLDivElement | null)[]>([]);
 
-  useEffect(() => {
-    setLayers(LAYERS.map((l, i) => generateStars(
-      isMobile ? MOBILE_COUNTS[i] : l.count,
-      l.size, l.opacity, l.twinkle
-    )));
-  }, [isMobile]);
+  const layers = useMemo(
+    () =>
+      mounted
+        ? LAYERS.map((l, i) =>
+            generateStars(
+              isMobile ? MOBILE_COUNTS[i] : l.count,
+              l.size,
+              l.opacity,
+              l.twinkle
+            )
+          )
+        : [],
+    [mounted, isMobile]
+  );
 
   useEffect(() => {
     if (isMobile) return;

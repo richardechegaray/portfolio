@@ -1,5 +1,7 @@
+import { getLenis } from "./lenis";
+
 export function smoothScrollTo(targetY: number) {
-  const lenis = (window as unknown as { __lenis?: { scrollTo: (target: number, opts?: { duration?: number; easing?: (t: number) => number }) => void } }).__lenis;
+  const lenis = getLenis();
   if (lenis) {
     lenis.scrollTo(targetY, {
       duration: 1.2,

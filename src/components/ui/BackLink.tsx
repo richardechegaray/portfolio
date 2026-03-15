@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { getLenis } from "@/lib/lenis";
 
 interface BackLinkProps {
   href: string;
@@ -20,13 +21,10 @@ export function BackLink({ href, children, className }: BackLinkProps) {
     router.push(href);
 
     if (hash) {
-      // Stop Lenis so it can't fight our scroll
-      const lenis = (window as unknown as { __lenis?: { stop: () => void; start: () => void; scrollTo: (target: HTMLElement, opts?: { immediate: boolean }) => void } }).__lenis;
+      const lenis = getLenis();
       if (lenis) lenis.stop();
 
-      let cancelled = false;
       const scrollToHash = (retries = 0) => {
-        if (cancelled) return;
         const el = document.getElementById(hash);
         if (el) {
           if (lenis) {
@@ -38,13 +36,10 @@ export function BackLink({ href, children, className }: BackLinkProps) {
         } else if (retries < 30) {
           requestAnimationFrame(() => scrollToHash(retries + 1));
         } else if (lenis) {
-          lenis.start(); // Ensure Lenis restarts even if element not found
+          lenis.start();
         }
       };
       requestAnimationFrame(scrollToHash);
-
-      // Cleanup: cancel retries if component unmounts during scroll
-      return () => { cancelled = true; if (lenis) lenis.start(); };
     }
   };
 

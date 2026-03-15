@@ -1,12 +1,13 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowDown, FolderGit2, Film, FileText, Github, Linkedin, Mail } from "lucide-react";
 import Link from "next/link";
 import { Timeline } from "@/components/timeline/Timeline";
 import { timelineEvents } from "@/data/timeline";
 import { siteConfig } from "@/lib/constants";
+import { useIsMobile } from "@/lib/hooks";
 import { smoothScrollTo } from "@/lib/utils";
 
 const contactLinks = [
@@ -49,15 +50,7 @@ export default function TimelinePage() {
   const heroOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
   const scrollThumbTop = useTransform(pageProgress, [0, 1], [0, 136]);
 
-  // Disable parallax on mobile for better performance and layout
-  const [isMobile, setIsMobile] = useState(false);
-  useEffect(() => {
-    const mq = window.matchMedia("(max-width: 768px)");
-    setIsMobile(mq.matches);
-    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
-    mq.addEventListener("change", handler);
-    return () => mq.removeEventListener("change", handler);
-  }, []);
+  const isMobile = useIsMobile();
 
   return (
     <>

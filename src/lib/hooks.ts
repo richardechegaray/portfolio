@@ -1,22 +1,43 @@
-import { useEffect, useState } from "react";
+import { useMemo, useSyncExternalStore } from "react";
 
-/**
- * Shared mobile detection hook. Uses `pointer: coarse` as the source of truth
- * (matches touch devices regardless of viewport width).
- *
- * Returns `false` during SSR to avoid hydration mismatch — the first client
- * render matches the server, then flips on the next tick if needed.
- */
+const subscribeMobile = (callback: () => void) => {
+  const mq = window.matchMedia("(pointer: coarse)");
+  mq.addEventListener("change", callback);
+  return () => mq.removeEventListener("change", callback);
+};
+
+const getIsMobile = () => window.matchMedia("(pointer: coarse)").matches;
+
 export function useIsMobile() {
-  const [isMobile, setIsMobile] = useState(false);
+  return useSyncExternalStore(subscribeMobile, getIsMobile, () => false);
+}
 
-  useEffect(() => {
-    const mq = window.matchMedia("(pointer: coarse)");
-    setIsMobile(mq.matches);
-    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
-    mq.addEventListener("change", handler);
-    return () => mq.removeEventListener("change", handler);
-  }, []);
+const emptySubscribe = () => () => {};
 
-  return isMobile;
+export function useHasMounted() {
+  return useSyncExternalStore(emptySubscribe, () => true, () => false);
+}
+
+const subscribeResize = (callback: () => void) => {
+  window.addEventListener("resize", callback);
+  return () => window.removeEventListener("resize", callback);
+};
+
+export function useSpotlightSize() {
+  return useSyncExternalStore(
+    subscribeResize,
+    () => Math.min(window.innerWidth, window.innerHeight) * 0.35,
+    () => 500
+  );
+}
+
+export function useStarLayers(
+  generateFn: (isMobile: boolean) => unknown[][],
+) {
+  const isMobile = useIsMobile();
+  const mounted = useHasMounted();
+  return useMemo(
+    () => (mounted ? generateFn(isMobile) : []),
+    [mounted, isMobile, generateFn],
+  );
 }
