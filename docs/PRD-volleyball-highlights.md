@@ -301,26 +301,31 @@ R2_PUBLIC_URL=          # Custom domain or R2.dev URL for public access
 Infrastructure, utilities, and validation. Nothing flashy — just making sure every piece works in isolation so Monday is pure building.
 
 #### Accounts & Config
-- [ ] Create Google AI Studio account, get Gemini API key
-- [ ] Create Supabase project, run the SQL schema (Section 5.1), get URL + service role key
-- [ ] Create Cloudflare R2 bucket `volleyball-highlights`, create API token, enable public access
-- [ ] Install yt-dlp and ffmpeg locally, verify both work
-- [ ] Create `.env.local` with all keys populated
-- [ ] Add `.env.local` to `.gitignore` (should already be there via Next.js)
+- [x] Create Google AI Studio account, get Gemini API key
+- [x] Create Supabase project, run the SQL schema (Section 5.1), get URL + service role key
+- [x] Create Cloudflare R2 bucket `volleyball-clips`, create API token, enable public access
+- [x] Install yt-dlp and ffmpeg locally, verify both work
+- [x] Create `.env.local` with all keys populated
+- [x] Add `.env.local` to `.gitignore` (should already be there via Next.js)
 
 #### Utility Modules (client wrappers only — no pipeline logic)
-- [ ] `lib/gemini.ts` — Initialize Gemini client, export a typed `analyzeVideo(filePath): Promise<Highlight[]>` function
-- [ ] `lib/supabase.ts` — Initialize Supabase client, export typed query helpers
-- [ ] `lib/r2.ts` — Initialize S3 client pointing at R2, export `uploadClip(buffer, key): Promise<string>` returning the public URL
-- [ ] `lib/highlights.ts` — TypeScript types for the highlight pipeline (shared between API routes and frontend)
+- [x] `lib/gemini.ts` — Initialize Gemini client, export a typed `analyzeVideo(filePath): Promise<Highlight[]>` function
+- [x] `lib/supabase.ts` — Initialize Supabase client, export typed query helpers
+- [x] `lib/r2.ts` — Initialize S3 client pointing at R2, export `uploadClip(buffer, key): Promise<string>` returning the public URL
+- [x] `lib/highlights.ts` — TypeScript types for the highlight pipeline (shared between API routes and frontend)
 
 #### Validation & Prompt Tuning
-- [ ] Test Gemini prompt with a real ~5-10 min volleyball YouTube video
-- [ ] Iterate on the prompt until JSON output is reliable and timestamps are accurate
-- [ ] Test yt-dlp download + ffmpeg extraction manually end-to-end
-- [ ] Test R2 upload + public URL access
-- [ ] Test Supabase insert + query
-- [ ] Find 2-3 good test videos (bookmark URLs for Monday)
+- [x] Test Gemini prompt with a real ~5-10 min volleyball YouTube video
+- [x] Iterate on the prompt until JSON output is reliable and timestamps are accurate
+- [x] Test yt-dlp download + ffmpeg extraction manually end-to-end
+- [x] Test R2 upload + public URL access
+- [x] Test Supabase insert + query
+- [x] Find 2-3 good test videos (bookmark URLs for Monday)
+
+**Test Videos:**
+- https://www.youtube.com/watch?v=L12P91HEYqM (~24 min, verified working)
+- https://www.youtube.com/watch?v=VAl1Nly2IuA
+- https://www.youtube.com/watch?v=YGQh9oFnqmM
 
 #### Install Dependencies
 - [ ] `npm install @google/generative-ai @supabase/supabase-js @aws-sdk/client-s3`
